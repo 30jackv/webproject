@@ -1,2 +1,2 @@
-# webterv_tt
-Webtervezés gyakorlat projekt munka Tuza Tibivel
+# webterv
+Webtervezés gyakorlat projekt munka
