@@ -9,7 +9,6 @@ nav { /* navon belüli szövegek rendezése szerint */
   top: 0;
   width: 100%;
 }
-
 nav a {
   color: #FBFADA; /* betűszín */
   text-decoration: none; /* el vegye az aláhúzást */
@@ -17,12 +16,11 @@ nav a {
   margin: 0 50px;
   padding: 5px; /* több hely belülről */
 }
-
-nav a:hover { /* ha rá viszi az egeret */
+nav a:hover:not(.active) { /* ha rá viszi az egeret */
+  font-size: larger;
   background-color: #ADBC9F;
   color: #436850;
 }
-
 nav a.active { /* ha az oldalon van */
   background-color: #ADBC9F;
   color: #436850;
@@ -33,7 +31,7 @@ nav a.active { /* ha az oldalon van */
 body {
   color: #436850;
   font-size: large;
-  margin: 0;
+  margin: 0 0 100px 0;
   padding: 0;
   font-family: Arial, serif;
   background-color: #FBFADA;
@@ -90,6 +88,7 @@ h1 {
   float: right;
   margin-left: 10px;
 }
+
 #main-allat section:nth-child(odd) {
   margin: 20px 30px 20px auto;
   width: 1000px;
