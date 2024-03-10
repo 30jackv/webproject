@@ -97,7 +97,7 @@ section {
   float: left;
 }
 #main-allat section:nth-child(even) h2 {
-  letter-spacing: 10px;
+  letter-spacing: 5px;
   text-align: left;
 }
 #main-allat section:nth-child(odd) h2 {
