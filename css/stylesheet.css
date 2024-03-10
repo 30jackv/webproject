@@ -1,20 +1,32 @@
+/* body */
+body {
+  color: black;
+  font-size: larger;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", serif;
+  background-color: #FBFADA;
+}
+h1 {
+  text-align: center;
+}
+main {
+  padding-top: 50px;
+}
+/* body */
 /* nav menu */
 nav { /* navon belüli szövegek rendezése szerint */
   background-color: #436850;
-  text-align: center;
-  padding: 10px 10px 15px;
-  border-bottom:  5px solid #12372A;
-
+  padding: 15px;
+  border-bottom:  5px solid #1a4f3d;
   position: fixed;
-  top: 0;
   width: 100%;
 }
 nav a {
   color: #FBFADA; /* betűszín */
   text-decoration: none; /* el vegye az aláhúzást */
-  border-bottom: #ADBC9F solid 4px; /* szegély beállítása */
-  margin: 0 50px;
-  padding: 5px; /* több hely belülről */
+  margin: 0 20px;
+  padding: 10px; /* több hely belülről */
 }
 
 nav a.active { /* ha az oldalon van */
@@ -23,42 +35,28 @@ nav a.active { /* ha az oldalon van */
 }
 /* nav menu */
 
-/* main */
-body {
-  color: #436850;
-  font-size: large;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, serif;
-  background-color: #FBFADA;
+/* index.html */
+#main-index img[alt="tigris xd"] {
+  min-height: 690px;
+  min-width: 50%;
+  object-fit: cover;
 }
 
-main {
+section {
+  min-height: 100%;
+}
+
+#main-index  {
+  min-width: 50%;
   display: flex;
-  margin:  45px auto 0 0; /* margó beállítása fentröl és jobbról */
 }
-
-h1 {
-  text-align: center;
-}
-
 #index-article {
+  text-align: justify;
   margin: 10px;
-  text-align: justify; /* sorkizárt */
-}
-
-.float-left {
-  height: 660px;
-  float: left;
-}
-
-.float-right {
-  width: 650px;
-  float: right;
 }
 
 .icon-kontenor {
-  margin: 10px;
+  height: 100px;
   text-align: center;
 }
 
@@ -69,42 +67,126 @@ h1 {
 
 #google-terkep {
   width: 100%;
-  height: 280px;
+  height: 300px;
 }
+/* index.html */
 
+/* allat.html */
 #main-allat {
   display: flex;
   flex-direction: column;
+  text-align: justify;
+}
+#main-allat section {
+  color: black;
+  width: 1000px;
+  background-color: #E8E4D9;
+  border:  5px solid #383228;
+  padding: 10px;
 }
 
 #main-allat img {
   width: 350px;
-  float: left;
   margin-right: 10px;
+  margin-left: 10px;
+}
+#main-allat section:nth-child(odd) > img {
+  float: right;
+}
+#main-allat section:nth-child(even) > img {
+  float: left;
+}
+#main-allat section:nth-child(even) h2 {
+  letter-spacing: 10px;
+  text-align: left;
+}
+#main-allat section:nth-child(odd) h2 {
+  letter-spacing: 10px;
+  text-align: right;
 }
 
 #main-allat section:nth-child(odd) {
   margin: 20px 30px 20px auto;
-  width: 1000px;
-  background-color: #E8E4D9;
-  border:  5px solid #12372A;
-  padding: 10px;
 }
 
 #main-allat section:nth-child(even) {
   margin: 20px auto 20px 30px;
-  width: 1000px;
-  background-color: #E8E4D9;
-  border:  5px solid #12372A;
-  padding: 10px;
 }
-/* main */
+caption {
+  font-weight: bold;
+}
+#allatok-tablazat th {
+  background-color: #65a3ff;
+}
+#allatok-tablazat tbody tr:nth-of-type(odd) {
+  background-color: #e4e9ff;
+}
 
+#allatok-tablazat tbody tr:nth-of-type(even) {
+  background-color: #c5dafd;
+}
+
+#allatok-tablazat tbody tr:hover, th:hover {
+  background-color: #ebffe9;
+}
+
+#allatok-tablazat {
+  width: 50%;
+  height: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+#allatok-tablazat tr {
+  border: #000000 2px solid;
+  border-collapse: collapse;
+}
+/* allat.html */
+
+/* bejelentkezes */
+fieldset {
+  border: #436850 5px solid;
+  border-radius: 30px;
+  text-align: center;
+  padding-top: 20px;
+}
+form fieldset input[id="username"] {
+  margin-right: 80px;
+}
+
+form fieldset input[type="submit"] {
+  background-color: #436850;
+  color: #FBFADA;
+  padding: 20px;
+}
+form fieldset input {
+  margin: 10px 0 10px;
+  border: #436850 3px solid;
+  padding: 5px;
+  border-radius: 30px;
+}
+
+#bejelentkezes-form legend {
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #436850;
+  color: #FBFADA; /* betűszín */
+  padding: 20px;
+  border-radius: 30px;
+}
+#bejelentkezes-form {
+  padding:100px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* bejelentkezes */
 
 /* footer */
 footer {
   border-top:  5px solid #12372A;
-
   background-color: #436850;
   text-align: center;
   margin: 0;
