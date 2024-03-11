@@ -14,6 +14,7 @@ main {
   padding-top: 50px;
 }
 /* body */
+
 /* nav menu */
 nav { /* navon belüli szövegek rendezése szerint */
   background-color: #436850;
@@ -40,6 +41,7 @@ nav a.active { /* ha az oldalon van */
   min-height: 690px;
   min-width: 50%;
   object-fit: cover;
+  object-position: center;
 }
 
 section {
@@ -72,12 +74,14 @@ section {
 /* index.html */
 
 /* allat.html */
+
 #main-allat {
   display: flex;
   flex-direction: column;
   text-align: justify;
 }
 #main-allat section {
+  box-shadow: 10px 10px #8d8a8a;
   color: black;
   width: 1000px;
   background-color: #E8E4D9;
@@ -114,20 +118,26 @@ section {
 }
 caption {
   font-weight: bold;
+  font-size: xx-large;
+
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 #allatok-tablazat th {
-  background-color: #65a3ff;
+  color: white;
+  font-size: x-large;
+  background-color: #4b4335;
 }
 #allatok-tablazat tbody tr:nth-of-type(odd) {
-  background-color: #e4e9ff;
+  background-color: #988b6a;
 }
 
 #allatok-tablazat tbody tr:nth-of-type(even) {
-  background-color: #c5dafd;
+  background-color: #d0bfa0;
 }
 
 #allatok-tablazat tbody tr:hover, th:hover {
-  background-color: #ebffe9;
+  background-color: #fcfcbe;
 }
 
 #allatok-tablazat {
@@ -139,46 +149,53 @@ caption {
   border-collapse: collapse;
   margin-bottom: 40px;
 }
-#allatok-tablazat tr {
+#allatok-tablazat td, #allatok-tablazat th {
   border: #000000 2px solid;
   border-collapse: collapse;
 }
 /* allat.html */
 
 /* bejelentkezes */
+
 fieldset {
+  background-color: #eeeec3;
+
+  margin-bottom: 50px;
   border: #436850 5px solid;
   border-radius: 30px;
   text-align: center;
   padding-top: 20px;
 }
-form fieldset input[id="username"] {
-  margin-right: 80px;
-}
 
-form fieldset input[type="submit"] {
+
+form fieldset input[type="submit"], input[type="reset"] {
   background-color: #436850;
   color: #FBFADA;
   padding: 20px;
+  width: 30%;
 }
 form fieldset input {
-  margin: 10px 0 10px;
+  align-items: center;
+  display: flex;
+  margin: 10px auto 10px auto;
   border: #436850 3px solid;
   padding: 5px;
   border-radius: 30px;
 }
 
 #bejelentkezes-form legend {
+  font-weight: bold;
   margin-right: auto;
   margin-left: auto;
   background-color: #436850;
   color: #FBFADA; /* betűszín */
   padding: 20px;
   border-radius: 30px;
+  width: 40%;
 }
 #bejelentkezes-form {
   padding:100px;
-  width: 50%;
+  width: 40%;
   margin-left: auto;
   margin-right: auto;
 }

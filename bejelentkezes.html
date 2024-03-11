@@ -19,8 +19,7 @@
   <a href="index.html">Kezdőlap</a>
   <a href="allatok.html">Állatok</a>
   <a class="active">Bejelentkezés</a>
-  <a href="edu.html">Oktatás</a>
-  <a href="support.html">Támogatás</a>
+
 </nav>
 
 <div id="bejelentkezes-form">
@@ -31,9 +30,25 @@
       <input type="text" id="username" name="username" placeholder="felhasználónév"/> <br>
       <label for="jelszo">Jelszó: </label>
       <input type="password" id="jelszo" name="password" placeholder="*******"/> <br> <br>
-      <input type="submit" name="submit"/> <br>
+      <input type="submit" value="Bejelentkezés" name="submit"/> <br>  <br>
     </fieldset>
-  </form>
+    <fieldset>
+      <legend>Regisztráció</legend>
+      <label for="full-name">Teljes név: </label>
+      <input type="text" id="full-name" name="full-name" placeholder="Teljes név"/> <br>
+      <label for="lakcim">Lakcím: </label>
+      <input type="text" id="lakcim" name="address" placeholder="Város, Utca, Házszám"/> <br>
+
+      <label for="username-register">Felhasználónév: </label>
+      <input type="text" id="username-register" name="username-register" placeholder="Felhasználónév"/> <br>
+
+      <label for="password-register">Jelszó: </label>
+      <input type="text" id="password-register" name="password-register" placeholder="*******"/> <br> <br>
+
+      <input type="submit" value="Regisztráció" name="register"/> <br>
+      <input type="reset" value="Reset" name="reset"/>
+    </fieldset>
+    </form>
 </div>
 
 
