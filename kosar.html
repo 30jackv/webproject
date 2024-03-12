@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ECO Állatkert</title>
+
+    <meta name="author" content="Csávás Levente Zsolt, és Tuza Tibor">
+    <meta name="description" content="ECO Állatkert honlapja">
+    <meta name="keywords" content="állatkert,szeged">
+
+    <link rel="icon" href="img/giraffe.png">
+    <link rel="stylesheet" href="css/stylesheet.css">
+</head>
+
+<body>
+<nav>
+    <a href="index.html">Kezdőlap</a>
+    <a href="allatok.html">Állatok</a>
+    <a href="bejelentkezes.html">Bejelentkezés</a>
+    <a class="active">Kosár</a>
+</nav>
+
+<main id="main-kosar">
+    <form method="GET" autocomplete="off">
+
+    <div id="kosar-container">
+        <div class="kosar">
+            <p>jegy</p>
+        </div>
+        <div class="kosar">
+            <p>jegy</p>
+        </div>
+        <div class="kosar">
+            <p>jegy</p>
+        </div>
+        <div class="kosar">
+            <p>jegy</p>
+        </div>
+    </div>
+    <div id="checkout-container">
+        <h2>Összegzés</h2>
+        <hr>
+        <div id="checkoutbelso-container">
+            <p>Jegyek száma: 2</p>
+            <p>Összesen: 500 Ft</p>
+        </div>
+        Kiszállítás: <br>
+        <select>
+            <option value="express">Expressz: +3500 Ft (1-2 nap várakozási idő)</option>
+            <option value="normal">Normál +1500 Ft (3-5 nap várakozási idő)</option>
+        </select> <br>
+        <label for="promo">Promóciós kód: </label> <br>
+        <input id="promo" type="text" value="Promóciós kód"> <br> <br>
+
+        <hr>
+        <p>Összesen (szállítással és promóciós kóddal együtt):</p>
+        <p>4000 Ft</p>
+        <input type="submit" value="Rendelés">
+
+    </div>
+    </form>
+</main>
+
+<footer>
+    <a>ecoallatkert@edu.hu</a>
+</footer>
+
+</body>
+</html>
