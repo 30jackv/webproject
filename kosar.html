@@ -14,58 +14,83 @@
     <link rel="stylesheet" href="css/stylesheet.css">
 </head>
 
-<body>
+<body id="hidescrollbar">
 <nav>
     <a href="index.html">Kezdőlap</a>
     <a href="allatok.html">Állatok</a>
     <a href="bejelentkezes.html">Bejelentkezés</a>
     <a class="active">Kosár</a>
 </nav>
-
+<form id="kosar" method="GET">
 <main id="main-kosar">
-    <form method="GET" autocomplete="off">
+    <div id="jegyek-container">
+        <div class="jegyek">
+            <img style="float:left; padding:20px; " width="100px" src="img/giraffe.png" alt="Zsiráf">
 
-    <div id="kosar-container">
-        <div class="kosar">
-            <p>jegy</p>
+            <h3>Diák jegy</h3>
+            <div class="leiras-container">
+                <label for="diakjegy">14 év felett, diákigazolvánnyal.</label>
+                <p class="ar">3500 Ft</p>
+                <input type="number" name="diakjegy" id="diakjegy" min="0" max="5">
+            </div>
         </div>
-        <div class="kosar">
-            <p>jegy</p>
+        <div class="jegyek">
+            <img style="float:left; padding:20px; " width="100px" src="img/giraffe.png" alt="Zsiráf">
+            <h3>Felnőtt jegy</h3>
+            <div class="leiras-container">
+                <label for="felnottjegy">18 év felett (kivéve a diákok és nyugdíjasok).</label>
+                <p class="ar">4800 Ft</p>
+                <input type="number" name="felnottjegy" id="felnottjegy" min="0" max="5">
+            </div>
         </div>
-        <div class="kosar">
-            <p>jegy</p>
+        <div class="jegyek">
+            <img style="float:left; padding:20px; " width="100px" src="img/giraffe.png" alt="Zsiráf">
+
+            <h3>Családi jegy</h3>
+            <div class="leiras-container">
+                <label for="csaladijegy">2 felnőtt és 1-3 gyermek esetén.</label>
+                <p class="ar">11 600 Ft</p>
+                <input type="number" name="csaladijegy" id="csaladijegy" min="0" max="5">
+            </div>
         </div>
-        <div class="kosar">
-            <p>jegy</p>
+        <div class="jegyek">
+            <img style="float:left; padding:20px; " width="100px" src="img/giraffe.png" alt="Zsiráf">
+
+            <h3>Nyugdíjas jegy</h3>
+            <div class="leiras-container">
+                <label for="nyugdijasjegy">Idősek részére, igazolvánnyal.</label>
+                <p class="ar">3500 Ft</p>
+                <input type="number" name="nyugdijasjegy" id="nyugdijasjegy" min="0" max="5">
+            </div>
         </div>
     </div>
     <div id="checkout-container">
         <h2>Összegzés</h2>
         <hr>
-        <div id="checkoutbelso-container">
-            <p>Jegyek száma: 2</p>
-            <p>Összesen: 500 Ft</p>
-        </div>
-        Kiszállítás: <br>
-        <select>
-            <option value="express">Expressz: +3500 Ft (1-2 nap várakozási idő)</option>
+        <div class="checkoutbelso-container">
+            <p>Jegyek száma:</p>
+            <p>2</p>
+            <p>Összesen:</p>
+            <p>500 Ft</p>
+        </div> <br>
+
+        <label for="kiszallitas">Kiszállítás:</label> <br>
+        <select id="kiszallitas">
+            <option value="express" selected>Expressz: +3500 Ft (1-2 nap várakozási idő)</option>
             <option value="normal">Normál +1500 Ft (3-5 nap várakozási idő)</option>
-        </select> <br>
+        </select> <br><br>
         <label for="promo">Promóciós kód: </label> <br>
-        <input id="promo" type="text" value="Promóciós kód"> <br> <br>
+        <input id="promo" type="text" placeholder="Promóciós kód..."> <br> <br>
 
         <hr>
-        <p>Összesen (szállítással és promóciós kóddal együtt):</p>
-        <p>4000 Ft</p>
-        <input type="submit" value="Rendelés">
-
+        <div class="checkoutbelso-container">
+            <p>Összesen:</p>
+            <p>4000 Ft</p>
+        </div> <br>
+        <input name="rendeles" type="submit" value="Rendelés">
     </div>
-    </form>
 </main>
-
-<footer>
-    <a>ecoallatkert@edu.hu</a>
-</footer>
+</form>
 
 </body>
 </html>

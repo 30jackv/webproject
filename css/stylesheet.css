@@ -4,7 +4,6 @@ body {
   font-size: larger;
   font-family: "Segoe UI", serif;
   background-color: #FBFADA;
-
   margin: 0;
   padding: 0;
 }
@@ -41,10 +40,9 @@ nav a.active { /* ha az oldalon van */
 
 /* index.html */
 #main-index img[alt="tigris xd"] {
-  min-height: 690px;
-  min-width: 50%;
+  height: 100vh;
+  max-width: 50%;
   object-fit: cover;
-  object-position: center;
 }
 
 section {
@@ -54,6 +52,7 @@ section {
 #main-index  {
   min-width: 50%;
   display: flex;
+  align-items: center;
 }
 #index-article {
   text-align: justify;
@@ -62,7 +61,9 @@ section {
 
 .icon-kontenor {
   height: 100px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 .icon {
@@ -77,7 +78,6 @@ section {
 /* index.html */
 
 /* allat.html */
-
 #main-allat {
   display: flex;
   flex-direction: column;
@@ -132,6 +132,7 @@ caption {
   margin-top: 30px;
 }
 #allatok-tablazat th {
+  padding: 20px;
   color: white;
   font-size: x-large;
   background-color: #4b4335;
@@ -174,22 +175,30 @@ fieldset {
   padding-top: 20px;
 }
 
-form fieldset input[type="submit"], input[type="reset"] {
+input[type="submit"], input[type="reset"] {
   background-color: #436850;
   color: #FBFADA;
-
   border: none;
   text-align: center;
   padding: 20px;
-  width: 30%;
 }
-form fieldset input {
+fieldset input[type="submit"], input[type="reset"] {
+  width: 200px;
+}
+
+fieldset input {
   display: flex;
+  justify-content: center;
   margin: auto;
   padding: 5px;
   border-radius: 30px;
 }
-
+input[type="submit"]:hover, input[type="reset"]:hover {
+  background-color: #314b3a;
+}
+input[type="submit"]:active, input[type="reset"]:active {
+  background-color: #223428;
+}
 #bejelentkezes-form legend {
   font-weight: bold;
   background-color: #436850;
@@ -201,56 +210,66 @@ form fieldset input {
   border-radius: 30px;
   width: 40%;
 }
-form {
-  align-items: center;
-
+#bejelentkezes {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-}
-#bejelentkezes-form {
-  padding:100px;
+  align-items: center;
+  padding: 100px;
   margin-left: auto;
   margin-right: auto;
 }
 /* bejelentkezes.html */
-
 /* kosar.html */
-form #main-kosar h1 {
-  margin-left: 50px;
+/* https://blog.magezon.com/wp-content/uploads/2023/02/website-shopping-cart-page.png */
+
+
+#kosar #main-kosar  {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+#main-kosar hr {
+  width: 100%;
+  border-color: #426750;
 }
 
-form #checkout-container {
+#main-kosar > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#jegyek-container {
+  padding:65px;
+  width: 100%;
+}
+.jegyek {
+  padding: 13px;
+  margin: 10px;
   background-color: #eeeec3;
-  width: 500px;
-  height: max-content;
-  float: right;
+  border: #12372A 5px solid;
+  border-radius: 20px;
+  border-collapse: collapse;
 }
-
-form #kosar-container {
-  background-color: #ff0000;
-  margin: auto;
-}
-
-form #kosar-container .kosar {
-  text-align: center;
-
-  background-color: #eeeec3;
-  border: #436850 5px solid;
-  border-radius: 30px;
-  width: 100px;
-  height: 100px;
+.jegyek .leiras-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #checkout-container {
   padding: 20px;
+  background-color: #eeeec3;
 }
 
-form #checkoutbelso-container {
-  padding: 20px;
+.checkoutbelso-container {
   display: flex;
   justify-content: space-between;
 }
+#hidescrollbar {
+  overflow: hidden;
+}
+
 /* kosar.html */
 
 /* footer */
