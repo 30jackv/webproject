@@ -1,0 +1,53 @@
+/* bejelentkezes */
+fieldset {
+  background-color: #eeeec3;
+  border: #436850 5px solid;
+  border-radius: 30px;
+
+  width: 500px;
+  text-align: center;
+  padding:10px;
+}
+
+input[type="submit"], input[type="reset"] {
+  background-color: #436850;
+  color: #FBFADA;
+  border: none;
+  text-align: center;
+  padding: 20px;
+}
+fieldset input[type="submit"], input[type="reset"] {
+  width: 200px;
+}
+
+fieldset input {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 5px;
+  border-radius: 30px;
+}
+input[type="submit"]:hover, input[type="reset"]:hover {
+  background-color: #314b3a;
+}
+input[type="submit"]:active, input[type="reset"]:active {
+  background-color: #223428;
+}
+#bejelentkezes-form legend {
+  font-weight: bold;
+  background-color: #436850;
+  color: #FBFADA; /* betűszín */
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px;
+  border-radius: 30px;
+  width: 40%;
+}
+
+#bejelentkezes-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 20px 0;
+}
+/* bejelentkezes.html */

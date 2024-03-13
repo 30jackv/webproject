@@ -1,0 +1,64 @@
+/* kosar.html */
+/* https://blog.magezon.com/wp-content/uploads/2023/02/website-shopping-cart-page.png */
+
+
+#kosar #main-kosar  {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+#main-kosar hr {
+  width: 100%;
+  border-color: #426750;
+}
+
+#main-kosar > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#jegyek-container {
+  padding:65px;
+  width: 100%;
+}
+.jegyek {
+  padding: 13px;
+  margin: 10px;
+  background-color: #eeeec3;
+  border: #12372A 5px solid;
+  border-radius: 20px;
+  border-collapse: collapse;
+}
+.jegyek .leiras-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#checkout-container {
+  padding: 20px;
+  background-color: #eeeec3;
+}
+
+.checkoutbelso-container {
+  display: flex;
+  justify-content: space-between;
+}
+#hidescrollbar {
+  overflow: hidden;
+}
+
+/* kosar.html */
+
+/* footer */
+footer {
+  border-top:  5px solid #12372A;
+  background-color: #436850;
+
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

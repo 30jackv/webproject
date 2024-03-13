@@ -1,0 +1,51 @@
+#main-index img[alt="tigris xd"] {
+  max-width: 50%;
+  object-fit: cover;
+}
+
+#main-index {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+#index-article {
+  text-align: justify;
+  margin: 10px;
+}
+
+.icon-kontenor {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.icon {
+  height: 60px;
+  padding: 10px;
+}
+
+#google-terkep{
+  height: 35%;
+  width: 100%;
+}
+
+footer {
+  bottom: 0;
+  position: fixed;
+  text-align: center;
+  padding:5px;
+  width: 100%;
+  border-top:  5px solid #1a4f3d;
+  background-color: #436850;
+}
+
+footer a {
+  color: #FBFADA;
+}
+
+footer a:hover {
+  text-decoration: #FBFADA underline;
+}

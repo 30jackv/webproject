@@ -1,0 +1,84 @@
+#main-allat {
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+}
+#main-allat section {
+
+  box-shadow: 10px 10px #8d8a8a;
+  color: black;
+
+  width: 1000px;
+  background-color: #E8E4D9;
+  border:  5px solid #383228;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+#main-allat img {
+  width: 350px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+#main-allat section:nth-child(odd) > img {
+  float: right;
+}
+#main-allat section:nth-child(even) > img {
+  float: left;
+}
+#main-allat section:nth-child(even) h2 {
+  letter-spacing: 5px;
+
+  text-align: left;
+}
+#main-allat section:nth-child(odd) h2 {
+  letter-spacing: 10px;
+
+  text-align: right;
+}
+
+#main-allat section:nth-child(odd) {
+  margin: 20px 30px 20px auto;
+}
+
+#main-allat section:nth-child(even) {
+  margin: 20px auto 20px 30px;
+}
+caption {
+  font-weight: bold;
+  font-size: xx-large;
+
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+#allatok-tablazat th {
+  color: white;
+  font-size: x-large;
+  background-color: #4b4335;
+}
+#allatok-tablazat tbody tr:nth-of-type(odd) {
+  background-color: #a69873;
+}
+
+#allatok-tablazat tbody tr:nth-of-type(even) {
+  background-color: #d0bfa0;
+}
+
+#allatok-tablazat tbody tr:hover, th:hover {
+  background-color: #f8f8bc;
+}
+
+#allatok-tablazat {
+  width: 50%;
+  height: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+#allatok-tablazat td, #allatok-tablazat th {
+  border: #000000 2px solid;
+  border-collapse: collapse;
+}
