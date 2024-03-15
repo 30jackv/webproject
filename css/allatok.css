@@ -5,6 +5,7 @@
   flex-direction: column;
   text-align: justify;
 }
+
 #main-allat section {
   box-shadow: 10px 10px #8d8a8a;
   color: black;
@@ -21,17 +22,21 @@
   margin-right: 10px;
   margin-left: 10px;
 }
+
 #main-allat section:nth-child(odd) > img {
   float: right;
 }
+
 #main-allat section:nth-child(even) > img {
   float: left;
 }
+
 #main-allat section:nth-child(even) h2 {
   letter-spacing: 5px;
 
   text-align: left;
 }
+
 #main-allat section:nth-child(odd) h2 {
   letter-spacing: 10px;
 
@@ -45,6 +50,7 @@
 #main-allat section:nth-child(even) {
   margin: 20px auto 20px 30px;
 }
+
 caption {
   font-weight: bold;
   font-size: xx-large;
@@ -52,11 +58,13 @@ caption {
   margin-bottom: 30px;
   margin-top: 30px;
 }
+
 #allatok-tablazat th {
   color: white;
   font-size: x-large;
   background-color: #4b4335;
 }
+
 #allatok-tablazat tbody tr:nth-of-type(odd) {
   background-color: #a69873;
 }
@@ -83,20 +91,39 @@ caption {
   border: #000000 2px solid;
   border-collapse: collapse;
 }
+
+
 @media screen and (max-width: 952px) {
+  #main-allat {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+  }
+
+  section {
+    padding: 0;
+    margin: 0;
+  }
+
   #main-allat section:nth-child(odd) {
-    margin: 10px 0;
+    margin: 20px 0;
   }
 
   #main-allat section:nth-child(even) {
     margin: 0;
   }
+
   #main-allat section {
-    width: 95%;
+    width: 90%;
     box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+
   #allatok-tablazat {
-    width: 100%;
-    padding: 5px;
+    width: 90%;
   }
 }
