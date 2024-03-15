@@ -1,4 +1,17 @@
+nav { /* navon belüli szövegek rendezése szerint */
+  background-color: #436850;
+  padding: 15px;
+  border-bottom:  5px solid #1a4f3d;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  overflow: auto;
+}
 /* body */
+
 body {
   color: black;
   font-size: larger;
@@ -8,29 +21,20 @@ body {
   padding: 0;
 }
 h1 {
-  padding-top: 50px;
+  padding-top: 70px;
   text-align: center;
 }
 main {
-  padding-top: 50px;
 }
 /* body */
 
 /* nav menu */
-nav { /* navon belüli szövegek rendezése szerint */
-  background-color: #436850;
-  padding: 15px;
-  border-bottom:  5px solid #1a4f3d;
-  top: 0;
-  position: fixed;
-  width: 100%;
-}
+
 nav a {
   color: #FBFADA; /* betűszín */
   text-decoration: none; /* el vegye az aláhúzást */
-
-  margin: 0 20px;
   padding: 10px; /* több hely belülről */
+  margin: 0 30px  ;
 }
 
 nav a.active { /* ha az oldalon van */
@@ -38,3 +42,9 @@ nav a.active { /* ha az oldalon van */
   color: #436850;
 }
 /* nav menu */
+
+@media screen and (max-width: 952px) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

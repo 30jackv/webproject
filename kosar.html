@@ -9,12 +9,12 @@
     <meta name="author" content="Csávás Levente Zsolt, és Tuza Tibor">
     <meta name="description" content="ECO Állatkert honlapja">
     <meta name="keywords" content="állatkert,szeged">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" href="img/giraffe.png">
     <link rel="stylesheet" href="css/kosar.css">
     <link rel="stylesheet" href="css/stylesheet.css">
 </head>
-
 <body>
 <nav>
     <a href="index.html">Kezdőlap</a>
@@ -22,6 +22,7 @@
     <a href="bejelentkezes.html">Bejelentkezés</a>
     <a class="active">Kosár</a>
 </nav>
+
 <form id="kosar" method="GET">
 <main id="main-kosar">
     <div id="jegyek-container">
@@ -68,26 +69,15 @@
     <div id="checkout-container">
         <h2>Összegzés</h2>
         <hr>
-        <div class="checkoutbelso-container">
-            <p>Jegyek száma:</p>
-            <p>2</p>
-            <p>Összesen:</p>
-            <p>500 Ft</p>
-        </div> <br>
 
         <label for="kiszallitas">Kiszállítás:</label> <br>
         <select id="kiszallitas">
             <option value="express" selected>Expressz: +3500 Ft (1-2 nap várakozási idő)</option>
             <option value="normal">Normál +1500 Ft (3-5 nap várakozási idő)</option>
-        </select> <br><br>
+        </select> <br>
         <label for="promo">Promóciós kód: </label> <br>
-        <input id="promo" type="text" placeholder="Promóciós kód..."> <br> <br>
-
+        <input id="promo" type="text" placeholder="Promóciós kód..."> <br>
         <hr>
-        <div class="checkoutbelso-container">
-            <p>Összesen:</p>
-            <p>4000 Ft</p>
-        </div> <br>
         <input name="rendeles" type="submit" value="Rendelés">
     </div>
 </main>

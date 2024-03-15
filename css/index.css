@@ -1,12 +1,31 @@
 #main-index img[alt="tigris xd"] {
-  max-width: 50%;
   object-fit: cover;
+  height: 100vh;
+  max-width: 50%;
+}
+
+@media screen and (max-width: 952px) {
+  body {
+    margin-top: 80px;
+  }
+  #main-index {
+    display: flex;
+    flex-direction: column;
+  }
+  #main-index img[alt="tigris xd"] {
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  h1 {
+    padding: 10px;
+  }
 }
 
 #main-index {
-  height: 100vh;
+  height: 100%;
   display: flex;
-  justify-content: center;
   padding: 0;
 }
 
@@ -27,7 +46,7 @@
   padding: 10px;
 }
 
-#google-terkep{
+#google-terkep {
   height: 35%;
   width: 100%;
 }

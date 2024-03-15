@@ -1,10 +1,11 @@
+
 #main-allat {
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   text-align: justify;
 }
 #main-allat section {
-
   box-shadow: 10px 10px #8d8a8a;
   color: black;
 
@@ -81,4 +82,21 @@ caption {
 #allatok-tablazat td, #allatok-tablazat th {
   border: #000000 2px solid;
   border-collapse: collapse;
+}
+@media screen and (max-width: 952px) {
+  #main-allat section:nth-child(odd) {
+    margin: 10px 0;
+  }
+
+  #main-allat section:nth-child(even) {
+    margin: 0;
+  }
+  #main-allat section {
+    width: 95%;
+    box-shadow: none;
+  }
+  #allatok-tablazat {
+    width: 100%;
+    padding: 5px;
+  }
 }

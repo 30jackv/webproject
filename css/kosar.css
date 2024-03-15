@@ -1,14 +1,18 @@
 /* kosar.html */
 /* https://blog.magezon.com/wp-content/uploads/2023/02/website-shopping-cart-page.png */
 #kosar #main-kosar  {
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
+  padding: 0;
 }
+
 #main-kosar hr {
   width: 100%;
   border-color: #426750;
 }
+
 #main-kosar > div {
   display: flex;
   flex-direction: column;
@@ -16,9 +20,10 @@
 }
 
 #jegyek-container {
-  padding:65px;
+  padding:65px 30px 10px;
   width: 100%;
 }
+
 .jegyek {
   padding: 13px;
   margin: 10px;
@@ -27,6 +32,7 @@
   border-radius: 20px;
   border-collapse: collapse;
 }
+
 .jegyek .leiras-container {
   display: flex;
   align-items: center;
@@ -36,15 +42,48 @@
 #checkout-container {
   padding: 20px;
   background-color: #eeeec3;
+  display: flex;
+}
+
+#checkout-container * {
+  margin-top: 10px;
 }
 
 .checkoutbelso-container {
   display: flex;
   justify-content: space-between;
 }
+
 .kepek {
   float: left;
   width: 100px;
   padding:20px;
+}
+@media screen and (max-width: 952px) {
+  #kosar #main-kosar {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+  }
+  #jegyek-container {
+    padding: 60px 0 20px;
+  }
+  .jegyek .leiras-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .jegyek {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #jegyek-container {
+    padding: 10px 0;
+  }
+  .kepek {
+    text-align: center;
+  }
 }
 /* kosar.html */
