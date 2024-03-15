@@ -3,6 +3,7 @@ form {
   display: flex;
   justify-content: center;
   column-gap: 100px;
+  margin-bottom: 20px;
 }
 
 fieldset label {
