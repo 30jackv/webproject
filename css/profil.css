@@ -4,6 +4,7 @@ form {
   justify-content: center;
   column-gap: 100px;
 }
+
 fieldset label {
   padding-top: 20px;
 }
@@ -45,9 +46,11 @@ form legend {
   border-radius: 30px;
   width: 40%;
 }
+
 form fieldset:last-child {
   overflow: auto;
 }
+
 table {
   border-collapse: collapse;
   margin-left: auto;
@@ -55,25 +58,49 @@ table {
   text-align: center;
   border-radius: 100px;
 }
+
 table * {
   padding: 6px;
-
 }
+
 table td, table th {
   border-right: 5px solid #253a2c;
 }
+
 table td:last-child, table th:last-child {
   border: none;
 }
+
 table th {
   background-color: #436850;
   color: #FBFADA;
   border-bottom: 5px solid #253a2c !important;
 }
+
 table td {
+  padding: 5px;
   background-color: #FBFADA;
 }
 
 table tr:last-child {
   border-bottom: 5px solid #253a2c;
+}
+
+@media screen and (max-width: 952px) {
+  form {
+    flex-direction: column;
+    align-items: center;
+    column-gap: 0;
+    margin-bottom: 20px;
+  }
+  fieldset {
+    width: 80%;
+    margin: 0 0 20px;
+  }
+  table * {
+    padding: 0;
+  }
+  form legend {
+    width: max-content;
+  }
 }
