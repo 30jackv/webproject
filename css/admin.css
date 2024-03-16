@@ -5,7 +5,7 @@ h2 {
 
 }
 
-#Ár módosítása-form {
+form {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -64,7 +64,7 @@ input[type="submit"]:active, input[type="reset"]:active {
 }
 
 @media screen and (max-width: 952px) {
-    #Ár módosítása-form {
+    form {
         flex-direction: column;
     }
     form fieldset {
