@@ -47,6 +47,19 @@ form legend {
   border-radius: 30px;
   width: 40%;
 }
+textarea {
+  margin-bottom: 10px;
+}
+input[type="submit"], input[type="reset"] {
+  background-color: #436850;
+  margin: 10px auto;
+  width: 50%;
+  color: #FBFADA;
+  border: none;
+  text-align: center;
+  padding: 20px;
+  border-radius: 20px;
+}
 
 form fieldset:last-child {
   overflow: auto;
@@ -85,6 +98,14 @@ table td {
 
 table tr:last-child {
   border-bottom: 5px solid #253a2c;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+  background-color: #314b3a;
+}
+
+input[type="submit"]:active, input[type="reset"]:active {
+  background-color: #223428;
 }
 
 @media screen and (max-width: 952px) {

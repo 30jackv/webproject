@@ -51,6 +51,7 @@ input[type="submit"]:hover, input[type="reset"]:hover {
 input[type="submit"]:active, input[type="reset"]:active {
   background-color: #223428;
 }
+
 @media screen and (max-width: 952px) {
   #bejelentkezes-form {
     flex-direction: column;

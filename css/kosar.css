@@ -10,7 +10,6 @@
 
 #main-kosar hr {
   width: 100%;
-  border-color: #426750;
 }
 
 #main-kosar > div {
@@ -59,6 +58,31 @@
   width: 100px;
   padding:20px;
 }
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+  background-color: #314b3a;
+}
+
+input[type="submit"]:active, input[type="reset"]:active {
+  background-color: #223428;
+}
+
+input[type="submit"], input[type="reset"] {
+  background-color: #436850;
+  margin: 10px auto;
+  width: 50%;
+  color: #FBFADA;
+  border: none;
+  text-align: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+input {
+  padding: 5px;
+  border-radius: 30px;
+}
+
 @media screen and (max-width: 952px) {
   #kosar #main-kosar {
     margin-top: 70px;

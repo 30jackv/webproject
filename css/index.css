@@ -51,20 +51,3 @@
   width: 100%;
 }
 
-footer {
-  bottom: 0;
-  position: fixed;
-  text-align: center;
-  padding:5px;
-  width: 100%;
-  border-top:  5px solid #1a4f3d;
-  background-color: #436850;
-}
-
-footer a {
-  color: #FBFADA;
-}
-
-footer a:hover {
-  text-decoration: #FBFADA underline;
-}
