@@ -4,28 +4,10 @@
   max-width: 50%;
 }
 
-@media screen and (max-width: 952px) {
-  body {
-    margin-top: 80px;
-  }
-  #main-index {
-    display: flex;
-    flex-direction: column;
-  }
-  #main-index img[alt="tigris xd"] {
-    height: 100%;
-    max-width: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-  h1 {
-    padding: 10px;
-  }
-}
-
 #main-index {
   height: 100%;
   display: flex;
+  align-items: center;
   padding: 0;
 }
 
@@ -50,4 +32,67 @@
   height: 35%;
   width: 100%;
 }
+footer h1 {
+  margin-top: 0;
+  padding-top: 20px;
+  color: white;
+}
 
+footer {
+  background-color: #314b3a;
+}
+
+#programok {
+  background-color: #314b3a;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.program-container {
+  background-color: #eeeec3;
+  border-radius: 25px;
+}
+
+.program-container header {
+  border-top: #203126 10px solid;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-collapse: collapse;
+  background-color: #203126;
+  color: #ffffff;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.program-container .leiras-container {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 952px) {
+  body {
+    margin-top: 80px;
+  }
+
+  #main-index {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #main-index img[alt="tigris xd"] {
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  #programok {
+    grid-template-columns: auto;
+  }
+  footer h1 {
+    margin-top: 100px;
+  }
+}

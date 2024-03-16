@@ -21,10 +21,10 @@ body {
   padding: 0;
 }
 h1 {
-  padding-top: 70px;
   text-align: center;
 }
 main {
+  margin-top: 80px;
 }
 /* body */
 
