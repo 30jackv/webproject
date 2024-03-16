@@ -1,0 +1,82 @@
+h2 {
+    color: red;
+    font-size: 24px;
+    text-align: center
+
+}
+
+#Ár módosítása-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px 0;
+
+
+}
+form {
+    margin-right: 30px;
+    text-align: center;
+    margin-top: 150px;
+
+}
+
+fieldset {
+    background-color: #eeeec3;
+    border: #436850 5px solid;
+    border-radius: 30px;
+    width: 500px;
+    text-align: center;
+    padding:10px;
+}
+form legend {
+    font-weight: bold;
+    background-color: #436850;
+    color: #ccae0c;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+    border-radius: 30px;
+    width: 40%;
+}
+input[type="submit"], input[type="reset"] {
+    background-color: #c7ad0c;
+    color: #FBFADA;
+    border: none;
+    text-align: center;
+    padding: 20px;
+}
+fieldset input[type="submit"], input[type="reset"] {
+    width: 200px;
+}
+fieldset input {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding: 5px;
+    border-radius: 30px;
+}
+input[type="submit"]:hover, input[type="reset"]:hover {
+    background-color: #c2b209;
+}
+input[type="submit"]:active, input[type="reset"]:active {
+    background-color: #c0b50a;
+}
+
+@media screen and (max-width: 952px) {
+    #Ár módosítása-form {
+        flex-direction: column;
+    }
+    form fieldset {
+        width: 300px;
+    }
+    form {
+        margin: 20px 0;
+
+    }
+}
+main {
+    text-align: center;
+    display: flex;
+    margin-top: 150px;
+}
