@@ -1,24 +1,7 @@
-h2 {
-    color: red;
-    font-size: 24px;
-    text-align: center
-
-}
-
 form {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 100px 20px 0;
-
-
-}
-form {
-    margin-right: 30px;
-    text-align: center;
-    margin-top: 150px;
-
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
 }
 
 fieldset {
@@ -29,54 +12,66 @@ fieldset {
     text-align: center;
     padding:10px;
 }
+
 form legend {
     font-weight: bold;
     background-color: #436850;
-    color: #ccae0c;
+    color: #FBFADA;
     margin-right: auto;
     margin-left: auto;
     padding: 20px;
     border-radius: 30px;
     width: 40%;
 }
+
 input[type="submit"], input[type="reset"] {
-    background-color: #c7ad0c;
+    background-color: #436850;
+    margin: 10px auto;
+    width: 50%;
     color: #FBFADA;
     border: none;
     text-align: center;
     padding: 20px;
+    border-radius: 20px;
 }
-fieldset input[type="submit"], input[type="reset"] {
-    width: 200px;
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+    background-color: #314b3a;
 }
-fieldset input {
+
+input[type="submit"]:active, input[type="reset"]:active {
+    background-color: #223428;
+}
+
+fieldset {
     display: flex;
-    justify-content: center;
-    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+}
+
+input {
+    width: 50%;
     padding: 5px;
     border-radius: 30px;
 }
-input[type="submit"]:hover, input[type="reset"]:hover {
-    background-color: #c2b209;
-}
-input[type="submit"]:active, input[type="reset"]:active {
-    background-color: #c0b50a;
+
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 @media screen and (max-width: 952px) {
-    form {
+    main {
+        display: flex;
         flex-direction: column;
+        align-items: center;
+        column-gap: 20px;
+        margin-bottom: 50px;
     }
     form fieldset {
         width: 300px;
     }
-    form {
-        margin: 20px 0;
 
-    }
-}
-main {
-    text-align: center;
-    display: flex;
-    margin-top: 150px;
 }

@@ -10,11 +10,6 @@ fieldset label {
   padding-top: 20px;
 }
 
-.jegyek {
-  display: flex;
-  justify-content: space-between;
-}
-
 fieldset h2 {
   text-align: center;
 }
@@ -24,11 +19,13 @@ fieldset img {
   margin-left: auto;
   margin-right: auto;
 }
+fieldset:first-child {
+  height: min-content;
+}
 
 fieldset {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   background-color: #eeeec3;
   border: #436850 5px solid;
   border-radius: 30px;
@@ -47,9 +44,11 @@ form legend {
   border-radius: 30px;
   width: 40%;
 }
+
 textarea {
   margin-bottom: 10px;
 }
+
 input[type="submit"], input[type="reset"] {
   background-color: #436850;
   margin: 10px auto;
@@ -98,6 +97,13 @@ table td {
 
 table tr:last-child {
   border-bottom: 5px solid #253a2c;
+}
+textarea {
+  height: 60px;
+}
+input {
+  padding: 5px;
+  border-radius: 30px;
 }
 
 input[type="submit"]:hover, input[type="reset"]:hover {

@@ -29,33 +29,33 @@
 
 <main>
 
-  <form id="update_price" action="/update_price" method="POST">
+  <form id="update_price" method="POST">
     <fieldset>
       <legend>Ár módosítása</legend>
       <label for="program_name">Program neve:</label>
       <input type="text" id="program_name" name="program_name" placeholder="Program neve"> <br>
       <label for="new_price">Új ár:</label>
-      <input type="number" id="new_price" name="new_price" placeholder="Új ár"> <br> <br>
+      <input type="number" id="new_price" name="new_price" placeholder="Új ár"> <br>
       <input type="submit" value="Ár módosítása">
     </fieldset>
   </form>
 
-  <form id="add_program" action="/add_program" method="POST">
+  <form id="add_program" method="POST">
     <fieldset>
       <legend>Új program hozzáadása</legend>
       <label for="new_program_name">Új program neve:</label>
       <input type="text" id="new_program_name" name="new_program_name" placeholder="Új program neve"> <br>
       <label for="new_program_price">Ár:</label>
-      <input type="number" id="new_program_price" name="new_program_price" placeholder="Ár"> <br> <br>
+      <input type="number" id="new_program_price" name="new_program_price" placeholder="Ár"> <br>
       <input type="submit" value="Program hozzáadása">
     </fieldset>
   </form>
 
-  <form id="delete_program" action="/delete_program" method="POST">
+  <form id="delete_program" method="POST">
     <fieldset>
       <legend>Program törlése</legend>
       <label for="delete_program_name">Törlendő program neve:</label>
-      <input type="text" id="delete_program_name" name="delete_program_name" placeholder="Törlendő program neve"> <br> <br>
+      <input type="text" id="delete_program_name" name="delete_program_name" placeholder="Törlendő program neve"> <br>
       <input type="submit" value="Program törlése">
     </fieldset>
   </form>

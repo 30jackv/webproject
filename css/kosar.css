@@ -40,6 +40,7 @@
 
 #checkout-container {
   padding: 20px;
+  height: 93vh;
   background-color: #eeeec3;
   display: flex;
 }
