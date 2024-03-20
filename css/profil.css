@@ -64,7 +64,6 @@ input[type="submit"], input[type="reset"] {
 }
 
 form fieldset:last-child {
-  overflow: auto;
 }
 
 table {
