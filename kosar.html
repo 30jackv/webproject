@@ -27,7 +27,7 @@
 
 </nav>
 
-<form id="kosar" method="POST">
+<form id="kosar" method="POST" autocomplete="off">
 <main id="main-kosar">
     <div id="jegyek-container">
         <div class="jegyek">
@@ -79,9 +79,14 @@
             <option value="express" selected>Expressz: +3500 Ft (1-2 nap várakozási idő)</option>
             <option value="normal">Normál +1500 Ft (3-5 nap várakozási idő)</option>
         </select> <br>
+
         <label for="promo">Promóciós kód: </label> <br>
-        <input id="promo" type="text" placeholder="Promóciós kód..."> <br>
+        <input id="promo" type="text" name="promokod" placeholder="Promóciós kód..."> <br>
+
         <hr>
+        <label for="szallitonak">Megjegyzés hagyása a szállítónak:</label> <br>
+        <textarea id="szallitonak" name="szallito-megjegyzes" maxlength="200" placeholder="Megjegyzés..."></textarea> <br>
+
         <input name="rendeles" type="submit" value="Rendelés">
         <input type="reset" value="Reset">
     </div>

@@ -48,10 +48,13 @@ form legend {
 textarea {
   margin-bottom: 10px;
 }
+hr {
+  width: 100%;
+}
 
 input[type="submit"], input[type="reset"] {
   background-color: #436850;
-  margin: 10px auto;
+  margin: 30px auto 0;
   width: 50%;
   color: #FBFADA;
   border: none;

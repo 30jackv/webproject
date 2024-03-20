@@ -4,11 +4,13 @@ nav { /* navon belüli szövegek rendezése szerint */
   border-bottom:  5px solid #1a4f3d;
   top: 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  gap: 100px;
   position: fixed;
   width: 100%;
   overflow: auto;
+
 }
 /* body */
 
@@ -34,7 +36,7 @@ nav a {
   color: #FBFADA; /* betűszín */
   text-decoration: none; /* el vegye az aláhúzást */
   padding: 10px; /* több hely belülről */
-  margin: 0 30px  ;
+  border-radius: 10px;
 }
 
 nav a.active { /* ha az oldalon van */

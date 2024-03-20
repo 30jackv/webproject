@@ -27,28 +27,25 @@
 </nav>
 
 <main>
-  <form method="POST">
+  <form id="profil-szerkesztes-urlap" method="POST" autocomplete="off">
     <fieldset>
       <legend>Profil szerkesztése</legend>
 
       <img src="img/giraffe.png" alt="Zsiráf">
       <h2>Lukács Égisétáló</h2>
+      <hr>
 
       <label for="felhasznalonev">Felhasználónév megváltoztatása: </label>
-      <input type="text" placeholder="Felhasználónév..." id="felhasznalonev" > <br>
+      <input type="text" placeholder="Felhasználónév..." id="felhasznalonev" name="fnev-valtoztatas"> <br>
 
       <label for="jelszo">Jelszó megváltoztatása:</label>
-      <input type="password" placeholder="*******" id="jelszo"> <br>
+      <input type="password" placeholder="*******" id="jelszo" name="jelszo-valtoztatas"> <br>
 
       <label for="profilkep">Profilkép megváltoztatása:</label>
-      <input type="file" id="profilkep"> <br>
+      <input type="file" id="profilkep" name="profilkep-valtoztatas"> <br>
 
-      <label for="szallitonak">Megjegyzés hagyása a szállítónak:</label> <br>
-      <textarea id="szallitonak" maxlength="200"></textarea>
-
-      <input type="submit" value="Változtatás">
+      <input type="submit" value="Változtatás" name="profil-szerkersztes">
       <input type="reset" value="Reset">
-
     </fieldset>
     <fieldset>
       <legend>Vásárlási előzmények</legend>

@@ -18,7 +18,6 @@
 
 <body>
 <nav>
-
   <a href="index.html">Kezdőlap</a>
   <a href="allatok.html">Állatok</a>
   <a href="bejelentkezes.html">Bejelentkezés</a>
@@ -28,35 +27,40 @@
 </nav>
 
 <main>
-
-  <form id="update_price" method="POST">
+  <form id="ar-frissites" method="POST">
     <fieldset>
       <legend>Ár módosítása</legend>
-      <label for="program_name">Program neve:</label>
-      <input type="text" id="program_name" name="program_name" placeholder="Program neve"> <br>
-      <label for="new_price">Új ár:</label>
-      <input type="number" id="new_price" name="new_price" placeholder="Új ár"> <br>
-      <input type="submit" value="Ár módosítása">
+      <label for="program-nev">Program neve:</label>
+      <input type="text" id="program-nev" name="nev-frissites" placeholder="Program neve"> <br>
+      <label for="uj-ar">Új ár:</label>
+      <input type="number" id="uj-ar" name="ar-frissites" placeholder="Új ár"> <br>
+      <label for="uj-datum">Új dátum:</label>
+      <input type="date" id="uj-datum" name="datum-frissites"> <br>
+
+      <input type="submit" value="Program módosítása" name="program-frissites-gomb">
     </fieldset>
   </form>
 
-  <form id="add_program" method="POST">
+  <form id="uj-program" method="POST">
     <fieldset>
       <legend>Új program hozzáadása</legend>
-      <label for="new_program_name">Új program neve:</label>
-      <input type="text" id="new_program_name" name="new_program_name" placeholder="Új program neve"> <br>
-      <label for="new_program_price">Ár:</label>
-      <input type="number" id="new_program_price" name="new_program_price" placeholder="Ár"> <br>
-      <input type="submit" value="Program hozzáadása">
+      <label for="uj-program-nev">Új program neve:</label>
+      <input type="text" id="uj-program-nev" name="uj-program-nev" placeholder="Új program neve"> <br>
+      <label for="uj-program-ar">Ár:</label>
+      <input type="number" id="uj-program-ar" name="uj-program-ar" placeholder="Ár"> <br>
+      <label for="uj-program-datum">Dátum:</label>
+      <input type="date" id="uj-program-datum" name="program-datum"> <br>
+
+      <input type="submit" value="Program hozzáadása" name="uj-program-gomb">
     </fieldset>
   </form>
 
-  <form id="delete_program" method="POST">
+  <form id="program-torles-urlap" method="POST">
     <fieldset>
       <legend>Program törlése</legend>
-      <label for="delete_program_name">Törlendő program neve:</label>
-      <input type="text" id="delete_program_name" name="delete_program_name" placeholder="Törlendő program neve"> <br>
-      <input type="submit" value="Program törlése">
+      <label for="program-torles">Törlendő program neve:</label>
+      <input type="text" id="program-torles" name="program-torles" placeholder="Törlendő program neve"> <br>
+      <input type="submit" value="Program törlése" name="program-torlese-gomb">
     </fieldset>
   </form>
 </main>

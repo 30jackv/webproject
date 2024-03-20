@@ -31,28 +31,29 @@
     <fieldset>
       <legend>Bejelentkezés</legend>
       <label for="username">Felhasználónév: </label>
-      <input type="text" id="username" name="username" placeholder="Felhasználónév"/> <br>
+      <input type="text" id="username" name="felhasznalonev" placeholder="Felhasználónév" required/> <br>
       <label for="jelszo">Jelszó: </label>
-      <input type="password" id="jelszo" name="password" placeholder="*******"/> <br> <br>
-      <input type="submit" value="Bejelentkezés" name="submit"/> <br>  <br>
+      <input type="password" id="jelszo" name="jelszo" placeholder="*******" required/> <br> <br>
+      <input type="submit" value="Bejelentkezés" name="bejelentkezes"/> <br>  <br>
     </fieldset>
   </form>
 
-  <form id="register" method="POST" autocomplete="on">
+  <form id="register" method="POST" autocomplete="off">
     <fieldset>
       <legend>Regisztráció</legend>
-      <label for="full-name">Teljes név: </label>
-      <input type="text" id="full-name" name="full-name" placeholder="Teljes név"/> <br>
-      <label for="lakcim">Lakcím: </label>
-      <input type="text" id="lakcim" name="address" placeholder="Város, Utca, Házszám"/> <br>
+      <label for="full-name">Teljes név*</label>
+      <input type="text" id="full-name" name="teljes-nev" placeholder="Teljes név" required/> <br>
 
-      <label for="username-register">Felhasználónév: </label>
-      <input type="text" id="username-register" name="username-register" placeholder="Felhasználónév"/> <br>
+      <label for="lakcim">Lakcím*</label>
+      <input type="text" id="lakcim" name="lakcim" placeholder="Város, Utca, Házszám" required/> <br>
 
-      <label for="password-register">Jelszó: </label>
-      <input type="text" id="password-register" name="password-register" placeholder="*******"/> <br> <br>
+      <label for="username-register">Felhasználónév*</label>
+      <input type="text" id="username-register" name="felhasznalonev-regisztracio" placeholder="Felhasználónév" required/> <br>
 
-      <input type="submit" value="Regisztráció" name="register"/> <br>
+      <label for="password-register">Jelszó*</label>
+      <input type="text" id="password-register" name="jelszo-regisztracio" placeholder="*******" required/> <br> <br>
+
+      <input type="submit" value="Regisztráció" name="regisztracio"/> <br>
       <input type="reset" value="Reset" name="reset"/>
     </fieldset>
     </form>

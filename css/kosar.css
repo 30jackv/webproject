@@ -40,7 +40,6 @@
 
 #checkout-container {
   padding: 20px;
-  height: 93vh;
   background-color: #eeeec3;
   display: flex;
 }
@@ -79,7 +78,7 @@ input[type="submit"], input[type="reset"] {
   border-radius: 20px;
 }
 
-input {
+input, select {
   padding: 5px;
   border-radius: 30px;
 }
