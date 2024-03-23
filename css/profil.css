@@ -31,7 +31,7 @@ fieldset {
   border: #436850 5px solid;
   border-radius: 30px;
   width: 500px;
-  padding: 30px;
+  padding: 10px;
 }
 
 form legend {
@@ -84,34 +84,34 @@ table {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  border-radius: 100px;
-}
-
-table * {
-  padding: 6px;
-}
-
-table td, table th {
-  border-right: 5px solid #253a2c;
-}
-
-table td:last-child, table th:last-child {
-  border: none;
 }
 
 table th {
+  padding: 15px;
   background-color: #436850;
   color: #FBFADA;
-  border-bottom: 5px solid #253a2c !important;
+  border-bottom: 5px solid #253a2c;
+}
+
+table th:first-child {
+  border-top-left-radius: 15px;
+}
+
+table th:last-child {
+  border-top-right-radius: 15px;
+}
+
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 15px;
+}
+
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 15px;
 }
 
 table td {
-  padding: 5px;
+  padding: 15px;
   background-color: #FBFADA;
-}
-
-table tr:last-child {
-  border-bottom: 5px solid #253a2c;
 }
 
 
