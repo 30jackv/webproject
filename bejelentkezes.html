@@ -30,11 +30,11 @@
   <form id="bejelentkezes" method="POST" autocomplete="on">
     <fieldset>
       <legend>Bejelentkezés</legend>
-      <label for="username">Felhasználónév: </label>
+      <label for="username">Felhasználónév:</label>
       <input type="text" id="username" name="felhasznalonev" placeholder="Felhasználónév" required> <br>
       <label for="jelszo">Jelszó: </label>
-      <input type="password" id="jelszo" name="jelszo" placeholder="*******" required> <br> <br>
-      <input type="submit" value="Bejelentkezés" name="bejelentkezes"> <br>  <br>
+      <input type="password" id="jelszo" name="jelszo" placeholder="*******" required> <br>
+      <input type="submit" value="Bejelentkezés" name="bejelentkezes"> <br>
     </fieldset>
   </form>
 
@@ -51,7 +51,10 @@
       <input type="text" id="username-register" name="felhasznalonev-regisztracio" placeholder="Felhasználónév" required> <br>
 
       <label for="password-register">Jelszó*</label>
-      <input type="text" id="password-register" name="jelszo-regisztracio" placeholder="*******" required> <br> <br>
+      <input type="text" id="password-register" name="jelszo-regisztracio" placeholder="*******" required> <br>
+
+      <label for="password-register-confirm">Jelszó mégerősítése*</label>
+      <input type="text" id="password-register-confirm" name="jelszo-regisztracio-megerosites" placeholder="*******" required> <br>
 
       <input type="submit" value="Regisztráció" name="regisztracio"> <br>
       <input type="reset" value="Reset" name="reset">

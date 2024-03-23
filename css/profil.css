@@ -31,7 +31,7 @@ fieldset {
   border: #436850 5px solid;
   border-radius: 30px;
   width: 500px;
-  padding: 10px;
+  padding: 30px 10px;
 }
 
 form legend {
@@ -81,8 +81,7 @@ input[type="submit"]:active, input[type="reset"]:active {
 
 table {
   border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
   text-align: center;
 }
 

@@ -1,25 +1,3 @@
-/* animáció */
-@keyframes balrolBeuszas {
-  from {
-    transform: translateX(-100%) }
-  to { transform: translateX(0) }
-}
-
-@keyframes jobbrolBeuszas {
-  from {
-    transform: translateX(100%) }
-  to { transform: translateX(0) }
-}
-
-#main-allat section:nth-child(odd) {
-  animation: jobbrolBeuszas 2s ease-in-out forwards;
-}
-
-#main-allat section:nth-child(even) {
-  animation: balrolBeuszas 2s ease-in-out forwards;
-}
-/* animáció */
-
 #main-allat {
   margin-top: 80px;
   display: flex;

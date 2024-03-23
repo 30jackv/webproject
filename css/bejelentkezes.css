@@ -3,20 +3,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 100px 20px 0;
+  padding-top: 90px;
+  column-gap: 100px;
+}
 
-}
-form {
-  margin-right: 50px;
-}
 
 fieldset {
   background-color: #eeeec3;
   border: #436850 5px solid;
   border-radius: 30px;
-  width: 500px;
   text-align: center;
-  padding:10px;
+  padding: 20px;
+  width: 500px;
 }
 
 #bejelentkezes-form legend {
@@ -27,7 +25,7 @@ fieldset {
   margin-left: auto;
   padding: 20px;
   border-radius: 30px;
-  width: max-content;
+  width: 200px
 }
 
 input[type="submit"], input[type="reset"] {
@@ -47,6 +45,7 @@ fieldset input {
   justify-content: center;
   margin: auto;
   padding: 5px;
+  width: 50%;
   border-radius: 30px;
 }
 
@@ -69,5 +68,4 @@ input[type="submit"]:active, input[type="reset"]:active {
     margin: 20px 0;
   }
 }
-
 /* bejelentkezes.html */

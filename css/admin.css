@@ -36,7 +36,7 @@ fieldset {
     flex-direction: column;
     align-items: center;
     border-radius: 30px;
-    padding: 20px 50px;
+    padding: 20px 100px;
     gap: 10px;
     background-color: #eeeec3;
     border: #436850 5px solid;
