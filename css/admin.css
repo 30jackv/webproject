@@ -6,7 +6,7 @@ fieldset {
     background-color: #eeeec3;
     border: #436850 5px solid;
     border-radius: 30px;
-    width: 400px;
+    width: 25vw;
     padding: 10px;
 }
 
@@ -19,7 +19,7 @@ form legend {
     padding: 20px;
     border-radius: 30px;
     text-align: center;
-    width: 40%;
+    width: max-content;
 }
 
 input[type="submit"] {

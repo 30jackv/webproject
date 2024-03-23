@@ -27,7 +27,7 @@ fieldset {
   margin-left: auto;
   padding: 20px;
   border-radius: 30px;
-  width: 40%;
+  width: max-content;
 }
 input[type="submit"], input[type="reset"] {
   background-color: #436850;
