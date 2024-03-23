@@ -87,7 +87,7 @@ input, select {
 
 @media screen and (max-width: 952px) {
   #kosar #main-kosar {
-    margin-top: 70px;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
   }

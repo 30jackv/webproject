@@ -78,7 +78,11 @@ input[type="submit"]:hover, input[type="reset"]:hover {
 input[type="submit"]:active, input[type="reset"]:active {
   background-color: #223428;
 }
-
+.jegyek {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 table {
   border-collapse: collapse;
   margin: auto;
@@ -107,6 +111,9 @@ table tr:last-child td:first-child {
 table tr:last-child td:last-child {
   border-bottom-right-radius: 15px;
 }
+table tr td:last-child:after {
+  content: " Ft";
+}
 
 table td {
   padding: 15px;
@@ -119,6 +126,7 @@ table td {
     align-items: center;
     column-gap: 0;
     margin-bottom: 20px;
+    margin-top: 110px;
   }
   fieldset {
     width: 80%;
