@@ -114,7 +114,6 @@ table td {
   background-color: #FBFADA;
 }
 
-
 @media screen and (max-width: 952px) {
   form {
     flex-direction: column;

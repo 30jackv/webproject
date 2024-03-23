@@ -19,10 +19,6 @@ nav a:hover {
   background-color: #ADBC9F;
   color: #436850;
 }
-
-nav a {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 /* animáció */
 
 nav { /* navon belüli szövegek rendezése szerint */
