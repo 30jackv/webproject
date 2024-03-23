@@ -1,17 +1,4 @@
 /* body */
-nav { /* navon belüli szövegek rendezése szerint */
-  background-color: #436850;
-  border-bottom:  5px solid #1a4f3d;
-  padding: 15px 0;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: fixed;
-  width: 100%;
-  overflow: auto;
-}
-/* body */
 
 body {
   color: black;
@@ -27,6 +14,29 @@ h1 {
 /* body */
 
 /* nav menu */
+/* animáció */
+nav a:hover {
+  background-color: #ADBC9F;
+  color: #436850;
+}
+
+nav a {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* animáció */
+
+nav { /* navon belüli szövegek rendezése szerint */
+  background-color: #436850;
+  padding: 15px 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  overflow: auto;
+}
+
 nav a {
   color: #FBFADA; /* betűszín */
   text-decoration: none; /* el vegye az aláhúzást */

@@ -21,12 +21,17 @@
   height: 100px;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
 .icon {
   height: 60px;
   padding: 10px;
+}
+
+.icon:hover {
+  transform: scale(1.05);
 }
 
 #google-terkep {
@@ -93,8 +98,5 @@ footer {
 
   #programok {
     grid-template-columns: auto;
-  }
-  footer h1 {
-    margin-top: 100px;
   }
 }

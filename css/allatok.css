@@ -1,3 +1,24 @@
+/* animáció */
+@keyframes balrolBeuszas {
+  from {
+    transform: translateX(-100%) }
+  to { transform: translateX(0) }
+}
+
+@keyframes jobbrolBeuszas {
+  from {
+    transform: translateX(100%) }
+  to { transform: translateX(0) }
+}
+
+#main-allat section:nth-child(odd) {
+  animation: jobbrolBeuszas 2s ease-in-out forwards;
+}
+
+#main-allat section:nth-child(even) {
+  animation: balrolBeuszas 2s ease-in-out forwards;
+}
+/* animáció */
 
 #main-allat {
   margin-top: 80px;
@@ -9,6 +30,7 @@
 #main-allat section {
   box-shadow: 10px 10px #8d8a8a;
   color: black;
+  z-index: -999;
 
   width: 70vw;
   background-color: #E8E4D9;
@@ -21,6 +43,7 @@
   width: 350px;
   margin-right: 10px;
   margin-left: 10px;
+  border-radius: 10px;
 }
 
 #main-allat section:nth-child(odd) > img {
@@ -33,13 +56,11 @@
 
 #main-allat section:nth-child(even) h2 {
   letter-spacing: 5px;
-
   text-align: left;
 }
 
 #main-allat section:nth-child(odd) h2 {
   letter-spacing: 10px;
-
   text-align: right;
 }
 
@@ -91,7 +112,6 @@ caption {
   border: #000000 2px solid;
   border-collapse: collapse;
 }
-
 
 @media screen and (max-width: 952px) {
   #main-allat {

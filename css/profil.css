@@ -19,6 +19,7 @@ fieldset img {
   margin-left: auto;
   margin-right: auto;
 }
+
 fieldset:first-child {
   height: min-content;
 }
@@ -45,9 +46,6 @@ form legend {
   width: max-content;
 }
 
-textarea {
-  margin-bottom: 10px;
-}
 hr {
   width: 100%;
 }
@@ -63,7 +61,22 @@ input[type="submit"], input[type="reset"] {
   border-radius: 20px;
 }
 
-form fieldset:last-child {
+textarea {
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 5px;
+  border-radius: 30px;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+  background-color: #314b3a;
+}
+
+input[type="submit"]:active, input[type="reset"]:active {
+  background-color: #223428;
 }
 
 table {
@@ -100,21 +113,7 @@ table td {
 table tr:last-child {
   border-bottom: 5px solid #253a2c;
 }
-textarea {
-  height: 60px;
-}
-input {
-  padding: 5px;
-  border-radius: 30px;
-}
 
-input[type="submit"]:hover, input[type="reset"]:hover {
-  background-color: #314b3a;
-}
-
-input[type="submit"]:active, input[type="reset"]:active {
-  background-color: #223428;
-}
 
 @media screen and (max-width: 952px) {
   form {
