@@ -8,7 +8,6 @@
 #main-allat section {
   box-shadow: 10px 10px #8d8a8a;
   color: black;
-  z-index: -999;
 
   width: 70vw;
   background-color: #E8E4D9;
@@ -60,7 +59,7 @@ caption {
 
 #allatok-tablazat th {
   color: white;
-  padding: 10px;
+  padding: 15px;
   font-size: x-large;
   background-color: #4b4335;
 }
@@ -102,6 +101,7 @@ caption {
     margin-top: 80px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: justify;
   }
