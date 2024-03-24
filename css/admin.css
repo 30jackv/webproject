@@ -65,11 +65,9 @@ main {
         justify-content: center;
         gap: 0;
     }
-    form {
-        width: 70%;
-    }
     fieldset {
         padding: 10px 60px;
+        margin-top: 10px;
     }
     form:last-child {
         margin-bottom: 30px;

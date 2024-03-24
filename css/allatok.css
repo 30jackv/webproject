@@ -60,7 +60,7 @@ caption {
 
 #allatok-tablazat th {
   color: white;
-  padding: 20px;
+  padding: 10px;
   font-size: x-large;
   background-color: #4b4335;
 }
@@ -87,6 +87,11 @@ caption {
   margin-bottom: 40px;
   padding: 20px;
 }
+
+#allatok-tablazat td {
+  padding: 10px;
+}
+
 #allatok-tablazat td, #allatok-tablazat th {
   border: #000000 2px solid;
   border-collapse: collapse;
