@@ -67,5 +67,9 @@ input[type="submit"]:active, input[type="reset"]:active {
   form {
     margin: 20px 0;
   }
+
+  fieldset {
+    width: min-content;
+  }
 }
 /* bejelentkezes.html */
