@@ -67,6 +67,7 @@ main {
     }
     fieldset {
         width: min-content;
+        padding: 10px 60px;
     }
     form:last-child {
         margin-bottom: 30px;
