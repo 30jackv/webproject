@@ -18,11 +18,11 @@
 
 <body>
 <nav>
-  <a href="index.html">Kezdőlap</a>
-  <a href="allatok.html">Állatok</a>
-  <a href="bejelentkezes.html">Bejelentkezés</a>
-  <a href="kosar.html">Kosár</a>
-  <a href="profil.html">Profil</a>
+  <a href="index.php">Kezdőlap</a>
+  <a href="allatok.php">Állatok</a>
+  <a href="bejelentkezes.php">Bejelentkezés</a>
+  <a href="kosar.php">Kosár</a>
+  <a href="profil.php">Profil</a>
   <a class="active">Admin</a>
 </nav>
 

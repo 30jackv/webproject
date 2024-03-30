@@ -1,4 +1,4 @@
-/* kosar.html */
+/* kosar.php */
 #kosar #main-kosar  {
   margin-top: 20px;
   display: flex;
@@ -41,10 +41,15 @@
   padding: 20px;
   background-color: #eeeec3;
   display: flex;
+  margin-top: 60px;
 }
 
 #checkout-container * {
   margin-top: 10px;
+}
+
+#checkout-container p {
+  text-align: center;
 }
 
 .checkoutbelso-container {
@@ -112,4 +117,4 @@ input, select {
     text-align: center;
   }
 }
-/* kosar.html */
+/* kosar.php */
