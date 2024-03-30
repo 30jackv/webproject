@@ -4,20 +4,33 @@
     if (isset($_POST["rendeles"])) {
         // diakjegy, felnottjegy, csaladijegy, nyugdijasjegy
         // ha meg van adva érték és egy betű, vagy üres akkor hiba
-        if ((isset($_POST["diakjegy"]) && !is_numeric($_POST["diakjegy"])) && trim($_POST["diakjegy"]) !== "") {
+
+        if ((isset($_POST["diakjegy"]) && (!is_numeric($_POST["diakjegy"]) && trim($_POST["diakjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Diákjegy!";
         }
 
-        if ((isset($_POST["felnottjegy"]) && !is_numeric($_POST["felnottjegy"]) ) && trim($_POST["felnottjegy"]) !== "") {
+        if ((isset($_POST["felnottjegy"]) && (!is_numeric($_POST["felnottjegy"]) && trim($_POST["felnottjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Felnőttjegy!";
         }
 
-        if ((isset($_POST["csaladijegy"]) && !is_numeric($_POST["csaladijegy"]) ) && trim($_POST["csaladijegy"]) !== "") {
+        if ((isset($_POST["csaladijegy"]) && (!is_numeric($_POST["csaladijegy"]) && trim($_POST["csaladijegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Családijegy!";
         }
 
-        if ((isset($_POST["nyugdijasjegy"]) && !is_numeric($_POST["nyugdijasjegy"]) ) && trim($_POST["nyugdijasjegy"]) !== "") {
+        if ((isset($_POST["nyugdijasjegy"]) && (!is_numeric($_POST["nyugdijasjegy"]) && trim($_POST["nyugdijasjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Nyugdíjasjegy!";
+        }
+
+        if ((!isset($_POST["kiszallitas-mod"]) && (!isset($_POST["express"]) || !isset($_POST["normal"])) )) {
+            $hibak[] = "Rossz kiszállítás mód lett kiválasztva!";
+        }
+
+        if ((isset($_POST["promokod"]) && (strlen($_POST["promokod"]) !== 6) && trim($_POST["promokod"]) !== "")) {
+            $hibak[] = "Promociós kódok csak 6 betűsek lehetnek!";
+        }
+
+        if (isset($_POST["szallito-megjegyzes"]) && (strlen($_POST["szallito-megjegyzes"]) >= 200)) {
+            $hibak[] = "A szállító megjegyzés nem lépheti túl a 200 karakter limitet!";
         }
 
         $diakjegy = $_POST["diakjegy"];
@@ -25,24 +38,25 @@
         $csaladijegy = $_POST["csaladijegy"];
         $nyugdijasjegy = $_POST["nyugdijasjegy"];
 
-        if ($diakjegy < 1 || $diakjegy > 5) {
+        if (!isset($_POST["diakjegy"]) && ($diakjegy < 1 || $diakjegy > 5)) {
             $hibak[] = "1 és 5 között lehet megadni számot itt: Diákjegy";
         }
 
-        if ($felnottjegy < 1 || $felnottjegy > 5) {
-            $hibak[] = "1 és 5 között lehet megadni számot itt: Felnőttjegy";
+        if (!isset($_POST["felnottjegy"]) && ($felnottjegy < 1 || $felnottjegy > 5)) {
+            $hibak[] = "1 és 5 között lehet, megadni számot itt: Felnőttjegy";
         }
 
-        if ($csaladijegy < 1 || $csaladijegy > 5) {
+        if (!isset($_POST["csaladijegy"]) && ($csaladijegy < 1 || $csaladijegy > 5)) {
             $hibak[] = "1 és 5 között lehet megadni számot itt: Családijegy";
         }
 
-        if ($nyugdijasjegy < 1 || $nyugdijasjegy > 5) {
+        if (!isset($_POST["nyugdijasjegy"]) && ($nyugdijasjegy < 1 || $nyugdijasjegy > 5)) {
             $hibak[] = "1 és 5 között lehet megadni számot itt: Nyugdíjasjegy";
         }
 
         if (count($hibak) === 0) {
             $siker = true;
+
         } else {
             $siker = false;
         }
@@ -125,7 +139,7 @@
         <hr>
 
         <label for="kiszallitas">Kiszállítás:</label> <br>
-        <select id="kiszallitas">
+        <select id="kiszallitas" name="kiszallitas-mod">
             <option value="express" selected>Expressz: +3500 Ft (1-2 nap várakozási idő)</option>
             <option value="normal">Normál +1500 Ft (3-5 nap várakozási idő)</option>
         </select> <br>

@@ -2,7 +2,7 @@
     $hibak = [];
 
     if (isset($_POST["regisztracio"])) { // ha regisztráció gombra rá kattintott
-        if (!isset($_POST["teljes-nev"])) { // ha nincs kitöltve
+        if (!isset($_POST["teljes-nev"]) || trim($_POST["teljes-nev"] === "")) { // ha nincs kitöltve
             $hibak[] = "Kötelező megadni a teljes nevet!";
         }
         if (!isset($_POST["lakcim"]) || trim($_POST["lakcim"] === "")) {
@@ -17,6 +17,7 @@
         if (!isset($_POST["jelszo-regisztracio-megerosites"]) || trim($_POST["jelszo-regisztracio-megerosites"] === "")) {
             $hibak[] = "Kötelező megadni a jelszót kétszer!";
         }
+
         $teljesnev_tomb = explode(" ", $_POST["teljes-nev"]);
         $lakcim_tomb = explode(", ", $_POST["lakcim"]);
         $teljesnev = $_POST["teljes-nev"];
@@ -39,13 +40,69 @@
             $hibak[] = "Város, Utcát, Házszámot kell megadni! Rossz formátum.";
         }
 
+        if (file_exists("fajlok/fiokok.json")) {
+            $content = file_get_contents("fajlok/fiokok.json");
+            $fiokok = json_decode($content, true);
+
+            if ($fiokok["felhasznalonev"] === $felhasznalonev_regisztracio) {
+                $hibak[] = "Létezik ilyen felhasználónév már!";
+            }
+        }
+
         if (count($hibak) === 0) {
             $siker = true;
+
+            $fiok = array(
+                "felhasznalonev" => $felhasznalonev_regisztracio,
+                "adatok" => array(
+                    "teljes-nev" => $teljesnev_tomb,
+                    "lakcim" => $lakcim_tomb,
+                    "jelszo" => $jelszo1
+                ),
+            );
+
+            // TODO: hozzá adni a fiókot a fiókokhoz
+
         } else {
             $siker = false;
         }
     }
 
+
+    // bejelentkezés
+    $hibakbejelentkezes = [];
+    if (isset($_POST["bejelentkezes"])) {
+
+        if (!fopen("fajlok/fiokok.json", "r")) {
+            $hibakbejelentkezes[] = "Hiba történt a fiókok fájl megnyitásakor";
+        }
+
+        $content = file_get_contents("fajlok/fiokok.json");
+        $fiokok = json_decode($content, true);
+
+        if (!isset($_POST["felhasznalonev"]) || (trim($_POST["felhasznalonev"]) === "")) {
+            $hibakbejelentkezes[] = "Kötelező megadni a felhasználónevet!";
+        }
+
+        if (!isset($_POST["jelszo"]) || (trim($_POST["jelszo"]) === "")) {
+            $hibakbejelentkezes[] = "Kötelező megadni a jelszavat!";
+        }
+
+        if ($fiokok["felhasznalonev"] !== $_POST["felhasznalonev"]) {
+            $hibakbejelentkezes[] = "Nincs ilyen felhasználónév!";
+        }
+
+        if ($fiokok["adatok"]["jelszo"] !== $_POST["jelszo"]) {
+            $hibakbejelentkezes[] = "Nem megfelelő a jelszó!";
+        }
+
+
+        if (count($hibakbejelentkezes) === 0) {
+            $bejelentkezessiker = true;
+        } else {
+            $bejelentkezessiker = false;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +140,15 @@
       <label for="jelszo">Jelszó: </label>
       <input type="password" id="jelszo" name="jelszo" placeholder="*******" required> <br>
       <input type="submit" value="Bejelentkezés" name="bejelentkezes"> <br>
+        <?php
+        if (isset($bejelentkezessiker) && $bejelentkezessiker === TRUE) {  // ha nem volt hiba, akkor a regisztráció sikeres
+            echo "<p style='text-align: center; font-size: 20px'>Sikeres bejelentkezés!</p>";
+        } else {                                // az esetleges hibákat kiírjuk egy-egy bekezdésben
+            foreach ($hibakbejelentkezes as $hiba) {
+                echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";
+            }
+        }
+        ?>
     </fieldset>
   </form>
 
@@ -108,7 +174,7 @@
       <input type="reset" value="Reset" name="reset">
         <?php
         if (isset($siker) && $siker === TRUE) {  // ha nem volt hiba, akkor a regisztráció sikeres
-            echo "<p style='text-align: center; font-size: 20px'>Sikeres rendelés!</p>";
+            echo "<p style='text-align: center; font-size: 20px'>Sikeres regisztráció!</p>";
         } else {                                // az esetleges hibákat kiírjuk egy-egy bekezdésben
             foreach ($hibak as $hiba) {
                 echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";
