@@ -7,10 +7,12 @@
 
     $admine = false;
 
-    foreach ($adminok["adminok"] as $admin) {
-        if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-            $admine = true;
-            break;
+    if (isset($_SESSION["felhasznalo"])) {
+        foreach ($adminok["adminok"] as $admin) {
+            if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+                $admine = true;
+                break;
+            }
         }
     }
 ?>
