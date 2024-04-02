@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 
 <html lang="hu">
@@ -20,10 +24,14 @@
 <nav>
   <a href="index.php">Kezdőlap</a>
   <a class="active">Állatok</a>
-  <a href="bejelentkezes.php">Bejelentkezés</a>
-  <a href="kosar.php">Kosár</a>
-  <a href="profil.php">Profil</a>
-  <a href="admin.php">Admin</a>
+    <?php if (!isset($_SESSION["felhasznalo"])) { ?>
+        <a href="bejelentkezes.php">Bejelentkezés</a>
+    <?php } else { ?>
+        <a href="kosar.php">Kosár</a>
+        <a href="profil.php">Profil</a>
+        <a href="admin.php">Admin</a>
+        <a href="kijelentkezes.php">Kijelentkezés</a>
+    <?php } ?>
 
 </nav>
 

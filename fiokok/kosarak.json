@@ -1,0 +1,11 @@
+{
+    "kosarak": [
+        {
+            "felhasznalonev": "123",
+            "diakjegy": "5",
+            "csaladijegy": "5",
+            "kiszallitas-mod": "express",
+            "szallito-megjegyzes": "hello!"
+        }
+    ]
+}

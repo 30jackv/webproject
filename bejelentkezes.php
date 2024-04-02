@@ -1,20 +1,24 @@
 <?php
-    $hibak = [];
+    session_start();
 
+    $usersfile = "fiokok/fiokok.json";
+
+    // regisztracio
+    $hibak = [];
     if (isset($_POST["regisztracio"])) { // ha regisztráció gombra rá kattintott
-        if (!isset($_POST["teljes-nev"]) || trim($_POST["teljes-nev"] === "")) { // ha nincs kitöltve
+        if (!isset($_POST["teljes-nev"]) || trim($_POST["teljes-nev"]) === "") { // ha nincs kitöltve
             $hibak[] = "Kötelező megadni a teljes nevet!";
         }
-        if (!isset($_POST["lakcim"]) || trim($_POST["lakcim"] === "")) {
+        if (!isset($_POST["lakcim"]) || trim($_POST["lakcim"]) === "") {
             $hibak[] = "Kötelező megadni a lakcímet!";
         }
-        if (!isset($_POST["felhasznalonev-regisztracio"]) || trim($_POST["felhasznalonev-regisztracio"] === "")) {
+        if (!isset($_POST["felhasznalonev-regisztracio"]) || trim($_POST["felhasznalonev-regisztracio"]) === "") {
             $hibak[] = "Kötelező megadni a felhasználónevet!";
         }
-        if (!isset($_POST["jelszo-regisztracio"])  || trim($_POST["jelszo-regisztracio"] === "")) {
+        if (!isset($_POST["jelszo-regisztracio"])  || trim($_POST["jelszo-regisztracio"]) === "") {
             $hibak[] = "Kötelező megadni a jelszót!";
         }
-        if (!isset($_POST["jelszo-regisztracio-megerosites"]) || trim($_POST["jelszo-regisztracio-megerosites"] === "")) {
+        if (!isset($_POST["jelszo-regisztracio-megerosites"]) || trim($_POST["jelszo-regisztracio-megerosites"]) === "") {
             $hibak[] = "Kötelező megadni a jelszót kétszer!";
         }
 
@@ -40,29 +44,32 @@
             $hibak[] = "Város, Utcát, Házszámot kell megadni! Rossz formátum.";
         }
 
-        if (file_exists("fajlok/fiokok.json")) {
-            $content = file_get_contents("fajlok/fiokok.json");
-            $fiokok = json_decode($content, true);
+        if (count(file($usersfile)) > 4) {
+            $fiokok = json_decode(file_get_contents($usersfile), true);
 
-            if ($fiokok["felhasznalonev"] === $felhasznalonev_regisztracio) {
-                $hibak[] = "Létezik ilyen felhasználónév már!";
+            foreach ($fiokok["users"] as $fiok) {
+                if ($fiok["felhasznalonev"] === $felhasznalonev_regisztracio) {
+                    $hibak[] = "Már létezik ilyen felhasználónév!";
+                    break;
+                }
             }
         }
 
         if (count($hibak) === 0) {
+            $jelszo = password_hash($jelszo1, PASSWORD_DEFAULT);
+            $fiok = [
+              "felhasznalonev" => $felhasznalonev_regisztracio,
+                "jelszo" => $jelszo,
+                "lakcim" => $lakcim_tomb,
+                "teljesnev" => $teljesnev_tomb
+            ];
+
+            $fiokok = json_decode(file_get_contents($usersfile), true);
+            $fiokok["users"][] = $fiok;
+            $json_data = json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            file_put_contents($usersfile, $json_data);
+
             $siker = true;
-
-            $fiok = array(
-                "felhasznalonev" => $felhasznalonev_regisztracio,
-                "adatok" => array(
-                    "teljes-nev" => $teljesnev_tomb,
-                    "lakcim" => $lakcim_tomb,
-                    "jelszo" => $jelszo1
-                ),
-            );
-
-            // TODO: hozzá adni a fiókot a fiókokhoz
-
         } else {
             $siker = false;
         }
@@ -70,37 +77,26 @@
 
 
     // bejelentkezés
-    $hibakbejelentkezes = [];
     if (isset($_POST["bejelentkezes"])) {
 
-        if (!fopen("fajlok/fiokok.json", "r")) {
-            $hibakbejelentkezes[] = "Hiba történt a fiókok fájl megnyitásakor";
-        }
-
-        $content = file_get_contents("fajlok/fiokok.json");
-        $fiokok = json_decode($content, true);
-
-        if (!isset($_POST["felhasznalonev"]) || (trim($_POST["felhasznalonev"]) === "")) {
-            $hibakbejelentkezes[] = "Kötelező megadni a felhasználónevet!";
-        }
-
-        if (!isset($_POST["jelszo"]) || (trim($_POST["jelszo"]) === "")) {
-            $hibakbejelentkezes[] = "Kötelező megadni a jelszavat!";
-        }
-
-        if ($fiokok["felhasznalonev"] !== $_POST["felhasznalonev"]) {
-            $hibakbejelentkezes[] = "Nincs ilyen felhasználónév!";
-        }
-
-        if ($fiokok["adatok"]["jelszo"] !== $_POST["jelszo"]) {
-            $hibakbejelentkezes[] = "Nem megfelelő a jelszó!";
-        }
-
-
-        if (count($hibakbejelentkezes) === 0) {
-            $bejelentkezessiker = true;
+        if (!isset($_POST["felhasznalonev"]) || !isset($_POST["jelszo"]) || trim($_POST["felhasznalonev"]) === "" || trim($_POST["jelszo"]) === "") {
+            $uzenet = "Kötelező kitölteni a mezőket!";
         } else {
-            $bejelentkezessiker = false;
+            $felhasznalonev = $_POST["felhasznalonev"];
+            $jelszo = $_POST["jelszo"];
+
+            $uzenet = "Az adatok nem megfelelők";
+
+            $fiokok = json_decode(file_get_contents($usersfile), true);
+
+            foreach ($fiokok["users"] as $fiok) {
+                if ($fiok["felhasznalonev"] === $felhasznalonev && password_verify($jelszo, $fiok["jelszo"])) {
+                    $uzenet = "Sikeres belépés!";
+                    $_SESSION["felhasznalo"] = $fiok;
+                    header("Location: profil.php");
+                    break;
+                }
+            }
         }
     }
 ?>
@@ -125,14 +121,18 @@
 <nav>
   <a href="index.php">Kezdőlap</a>
   <a href="allatok.php">Állatok</a>
-  <a class="active">Bejelentkezés</a>
-  <a href="kosar.php">Kosár</a>
-  <a href="profil.php">Profil</a>
-  <a href="admin.php">Admin</a>
+    <?php if (!isset($_SESSION["felhasznalo"])) { ?>
+        <a class="active">Bejelentkezés</a>
+    <?php } else { ?>
+        <a href="kosar.php">Kosár</a>
+        <a href="profil.php">Profil</a>
+        <a href="admin.php">Admin</a>
+        <a href="kijelentkezes.php">Kijelentkezés</a>
+    <?php } ?>
 </nav>
 
 <div id="bejelentkezes-form">
-  <form id="bejelentkezes" method="POST" autocomplete="on">
+  <form id="bejelentkezes" action="bejelentkezes.php" method="POST" autocomplete="on">
     <fieldset>
       <legend>Bejelentkezés</legend>
       <label for="username">Felhasználónév:</label>
@@ -141,18 +141,14 @@
       <input type="password" id="jelszo" name="jelszo" placeholder="*******" required> <br>
       <input type="submit" value="Bejelentkezés" name="bejelentkezes"> <br>
         <?php
-        if (isset($bejelentkezessiker) && $bejelentkezessiker === TRUE) {  // ha nem volt hiba, akkor a regisztráció sikeres
-            echo "<p style='text-align: center; font-size: 20px'>Sikeres bejelentkezés!</p>";
-        } else {                                // az esetleges hibákat kiírjuk egy-egy bekezdésben
-            foreach ($hibakbejelentkezes as $hiba) {
-                echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";
-            }
+        if (isset($uzenet)) {
+            echo "<p style='text-align: center; font-size: 20px'>" . $uzenet ."</p>";
         }
         ?>
     </fieldset>
   </form>
 
-  <form id="register" method="POST" autocomplete="off">
+  <form id="register" action="bejelentkezes.php" method="POST" autocomplete="off">
     <fieldset>
       <legend>Regisztráció</legend>
       <label for="full-name">Teljes név*</label>

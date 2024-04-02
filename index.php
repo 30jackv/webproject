@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 
 <html lang="hu">
@@ -16,15 +19,18 @@
 </head>
 
 <body>
-  <nav>
+<nav>
     <a class="active">Kezdőlap</a>
     <a href="allatok.php">Állatok</a>
-    <a href="bejelentkezes.php">Bejelentkezés</a>
-    <a href="kosar.php">Kosár</a>
-    <a href="profil.php">Profil</a>
-    <a href="admin.php">Admin</a>
-
-  </nav>
+    <?php if (!isset( $_SESSION["felhasznalo"])) { ?>
+        <a href="bejelentkezes.php">Bejelentkezés</a>
+    <?php } else { ?>
+        <a href="kosar.php">Kosár</a>
+        <a href="profil.php">Profil</a>
+        <a href="admin.php">Admin</a>
+        <a href="kijelentkezes.php">Kijelentkezés</a>
+    <?php } ?>
+</nav>
 
   <main id="main-index">
     <img src="img/whitetiger.jpg" alt="tigris xd">

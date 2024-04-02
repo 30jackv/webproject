@@ -1,5 +1,37 @@
 <?php
+    session_start();
+    $usersfile = "fiokok/fiokok.json";
 
+    $fiokok = json_decode(file_get_contents($usersfile), true);
+
+    if (isset($_POST["fnev-valtoztatas"]) && (trim($_POST["fnev-valtoztatas"]) !== "")) {
+        foreach ($fiokok["users"] as &$fiok) {
+            if ($fiok["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+                $fiok["felhasznalonev"] = $_POST["fnev-valtoztatas"];
+
+                file_put_contents($usersfile, json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                $_SESSION["felhasznalo"]["felhasznalonev"] = $_POST["fnev-valtoztatas"];
+                $nev_valtoztatas_siker = true;
+                break;
+            }
+        }
+        unset($fiok);
+    }
+
+    if (isset($_POST["jelszo-valtoztatas"]) && (trim($_POST["jelszo-valtoztatas"]) !== "")) {
+        foreach ($fiokok["users"] as &$fiok) {
+            if ($fiok["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+                $jelszo = password_hash($_POST["jelszo-valtoztatas"], PASSWORD_DEFAULT);
+                $fiok["jelszo"] = $jelszo;
+
+                file_put_contents($usersfile, json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                $_SESSION["felhasznalo"]["jelszo"] = $jelszo;
+                $jelszo_valtoztatas_siker = true;
+                break;
+            }
+        }
+        unset($fiok);
+    }
 ?>
 <!DOCTYPE html>
 
@@ -23,10 +55,14 @@
 <nav>
   <a href="index.php">Kezdőlap</a>
   <a href="allatok.php">Állatok</a>
-  <a href="bejelentkezes.php">Bejelentkezés</a>
-  <a href="kosar.php">Kosár</a>
-  <a class="active">Profil</a>
-  <a href="admin.php">Admin</a>
+    <?php if (!isset($_SESSION["felhasznalo"])) { ?>
+        <a href="bejelentkezes.php">Bejelentkezés</a>
+    <?php } else { ?>
+        <a href="kosar.php">Kosár</a>
+        <a class="active">Profil</a>
+        <a href="admin.php">Admin</a>
+        <a href="kijelentkezes.php">Kijelentkezés</a>
+    <?php } ?>
 </nav>
 
 <main>
@@ -35,7 +71,9 @@
       <legend>Profil szerkesztése</legend>
 
       <img src="img/giraffe.png" alt="Zsiráf">
-      <h2>Lukács Égisétáló</h2>
+        <?php
+        echo '<h2>'.$_SESSION["felhasznalo"]["felhasznalonev"] . '</h2>';
+        ?>
       <hr>
 
       <label for="felhasznalonev">Felhasználónév megváltoztatása: </label>
@@ -49,6 +87,23 @@
 
       <input type="submit" value="Változtatás" name="profil-szerkersztes">
       <input type="reset" value="Reset">
+        <?php
+        if (isset($nev_valtoztatas_siker)) {
+            if ($nev_valtoztatas_siker === TRUE) {
+                echo "<p style='text-align: center; font-size: 20px'>Sikeres név változtatás!</p>";
+            } else {
+                echo "<p style='text-align: center; font-size: 20px'>Sikertelen név változtatás!</p>";
+            }
+        }
+
+        if (isset($jelszo_valtoztatas_siker)) {
+            if ($jelszo_valtoztatas_siker === TRUE) {
+                echo "<p style='text-align: center; font-size: 20px'>Sikeres jelszó változtatás!</p>";
+            } else {
+                echo "<p style='text-align: center; font-size: 20px'>Sikertelen jelszó változtatás!</p>";
+            }
+        }
+        ?>
     </fieldset>
     <fieldset>
       <legend>Vásárlási előzmények</legend>

@@ -1,0 +1,17 @@
+{
+    "users": [
+        {
+            "felhasznalonev": "123",
+            "jelszo": "$2y$10$EZp3ugs4E1jHIKpjC9St6.zEtEToFCGJs\/9JC7C6JQvm.ijmVgqjC",
+            "lakcim": [
+                "123",
+                "123",
+                "123"
+            ],
+            "teljesnev": [
+                "123",
+                "123"
+            ]
+        }
+    ]
+}

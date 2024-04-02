@@ -1,3 +1,111 @@
+<?php
+    session_start();
+
+    $programfile = "fiokok/programok.json";
+    $ujprogramhibak = [];
+
+    if (isset($_POST["uj-program-gomb"])) {
+
+        if (!isset($_POST["uj-program-nev"]) && trim($_POST["uj-program-nev"]) !== "") {
+            $ujprogramhibak = "Kötelező megadni az új program nevét!";
+        }
+
+        if (!isset($_POST["uj-program-ar"]) && trim($_POST["uj-program-ar"]) !== "") {
+            $ujprogramhibak = "Kötelező megadni az új program árát!";
+        }
+
+        if (!isset($_POST["uj-program-datum"]) && trim($_POST["uj-program-datum"]) !== "") {
+            $ujprogramhibak[] = "Kötelező megadni az új program dátumát!";
+        }
+
+        if (count(explode($_POST["uj-program-datum"], "-")) !== 1) {
+            $ujprogramhibak[] = "Nem megfelelő dátum formátum!";
+        }
+
+        $uj_program_nev = $_POST["uj-program-nev"];
+        $uj_program_ar = $_POST["uj-program-ar"];
+        $uj_program_datum = $_POST["uj-program-datum"];
+
+        if ($uj_program_ar < 0 || is_float($uj_program_ar)) {
+            $ujprogramhibak[] = "Csak 0 vagy pozitív egész szám lehet!";
+        }
+
+        if ($uj_program_ar === "0") {
+            $uj_program_ar = "ingyenes";
+        }
+        $program = [
+                "program-nev" => $uj_program_nev,
+            "program-ar" => $uj_program_ar,
+            "program-datum" => $uj_program_datum
+        ];
+
+        if (count($ujprogramhibak) === 0) {
+            $uj_program_siker = true;
+            $programok = json_decode(file_get_contents($programfile), true);
+            $programok["programok"][] = $program;
+            $json_data = json_encode($programok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            file_put_contents($programfile, $json_data);
+        } else {
+            $uj_program_siker = false;
+        }
+    }
+    $programfrissiteshibak = [];
+
+    if (isset($_POST["program-frissites-gomb"])) {
+        if (!isset($_POST["program-nev"]) && trim($_POST["program-nev"]) !== "") {
+            $programfrissiteshibak = "Kötelező megadni a program nevét!";
+        }
+        $program_nev = $_POST["program-nev"];
+        $programoktomb = json_decode(file_get_contents($programfile), true);
+
+        if (count($programfrissiteshibak) === 0) {
+            $program_frissites_siker = true;
+
+            foreach ($programoktomb["programok"] as &$program) {
+                if ($program["program-nev"] === $program_nev) {
+                    if (isset($_POST["nev-frissites"]) && (trim($_POST["nev-frissites"]) !== "")) {
+                        $program["program-nev"] = $_POST["nev-frissites"];
+                    }
+                    if (isset($_POST["ar-frissites"]) && (trim($_POST["ar-frissites"]) !== "")) {
+                        $program["program-ar"] = $_POST["ar-frissites"];
+                    }
+                    if (isset($_POST["datum-frissites"]) && (trim($_POST["datum-frissites"]) !== "")) {
+                        $program["program-datum"] = $_POST["datum-frissites"];
+                    }
+                    break;
+                }
+                unset($program);
+            }
+
+            file_put_contents($programfile, json_encode($programoktomb, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        } else {
+            $program_frissites_siker = false;
+        }
+    }
+
+    if (isset($_POST["program-torlese-gomb"])) {
+        $programok = json_decode(file_get_contents($programfile), true);
+        $ujprogramok = [];
+        $program_nev = $_POST["torlendo-program-nev"];
+
+        $torlessiker = false;
+
+        foreach ($programok["programok"] as $program) {
+            if ($program["program-nev"] !== $program_nev) {
+                $ujprogramok[] = $program;
+            } else {
+                $torlessiker = true;
+            }
+        }
+
+        if ($torlessiker === true) {
+            $json_data = json_encode(["programok" => $ujprogramok], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            file_put_contents($programfile, $json_data);
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="hu">
@@ -15,15 +123,19 @@
   <link rel="stylesheet" href="css/admin.css">
   <link rel="stylesheet" href="css/stylesheet.css">
 </head>
-
 <body>
 <nav>
-  <a href="index.php">Kezdőlap</a>
-  <a href="allatok.php">Állatok</a>
-  <a href="bejelentkezes.php">Bejelentkezés</a>
-  <a href="kosar.php">Kosár</a>
-  <a href="profil.php">Profil</a>
-  <a class="active">Admin</a>
+    <a href="index.php">Kezdőlap</a>
+    <a href="allatok.php">Állatok</a>
+    <?php if (!isset( $_SESSION["felhasznalo"])) { ?>
+        <a href="bejelentkezes.php">Bejelentkezés</a>
+    <?php } else { ?>
+        <a href="kosar.php">Kosár</a>
+        <a href="profil.php">Profil</a>
+        <a class="active">Admin</a>
+        <a href="kijelentkezes.php">Kijelentkezés</a>
+    <?php } ?>
+
 </nav>
 
 <main>
@@ -31,8 +143,15 @@
     <fieldset>
       <legend>Program módosítása</legend>
       <label for="program-nev">Program neve:</label>
-      <input type="text" id="program-nev" name="nev-frissites" placeholder="Program neve"> <br>
-      <label for="program-nev-frissites">Új program neve:</label>
+        <?php
+            $programok = json_decode(file_get_contents($programfile), true);
+            echo '<select style="padding: 10px; border-radius: 30px; text-align: center; width: max-content;" name="program-nev" id="program-nev">';
+            foreach ($programok["programok"] as $program) {
+                echo '<option value="' . $program["program-nev"] . '">' . $program["program-nev"] . ' </option>' ;
+            }
+            echo '</select>';
+        ?>
+        <label for="program-nev-frissites">Új program neve:</label>
       <input type="text" id="program-nev-frissites" name="nev-frissites" placeholder="Új program neve"> <br>
       <label for="uj-ar">Új ár:</label>
       <input type="number" id="uj-ar" name="ar-frissites" min="0" placeholder="Új ár"> <br>
@@ -40,6 +159,15 @@
       <input type="date" id="uj-datum" name="datum-frissites"> <br>
 
       <input type="submit" value="Program módosítása" name="program-frissites-gomb">
+        <?php
+        if (isset($program_frissites_siker) && $program_frissites_siker === TRUE) {  // ha nem volt hiba, akkor a regisztráció sikeres
+            echo "<p style='text-align: center; font-size: 20px'>Sikeres frissítés!</p>";
+        } else {                                // az esetleges hibákat kiírjuk egy-egy bekezdésben
+            foreach ($programfrissiteshibak as $hiba) {
+                echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";
+            }
+        }
+        ?>
     </fieldset>
   </form>
 
@@ -51,9 +179,18 @@
       <label for="uj-program-ar">Ár:</label>
       <input type="number" id="uj-program-ar" name="uj-program-ar" min="0" placeholder="Ár"> <br>
       <label for="uj-program-datum">Dátum:</label>
-      <input type="date" id="uj-program-datum" name="program-datum"> <br>
+      <input type="date" id="uj-program-datum" name="uj-program-datum"> <br>
 
       <input type="submit" value="Program hozzáadása" name="uj-program-gomb">
+        <?php
+        if (isset($siker) && $siker === TRUE) {
+            echo "<p style='text-align: center; font-size: 20px'>Sikeres hozzáadás!</p>";
+        } else {
+            foreach ($ujprogramhibak as $hiba) {
+                echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";
+            }
+        }
+        ?>
     </fieldset>
   </form>
 
@@ -61,8 +198,22 @@
     <fieldset>
       <legend>Program törlése</legend>
       <label for="program-torles">Törlendő program neve:</label>
-      <input type="text" id="program-torles" name="program-torles" placeholder="Törlendő program neve"> <br>
-      <input type="submit" value="Program törlése" name="program-torlese-gomb">
+        <?php
+        $programok = json_decode(file_get_contents($programfile), true);
+        echo '<select style="padding: 10px; border-radius: 30px; text-align: center; width: max-content;" name="torlendo-program-nev" id="program-nev">';
+        foreach ($programok["programok"] as $program) {
+            echo '<option value="' . $program["program-nev"] . '">' . $program["program-nev"] . ' </option>' ;
+        }
+        echo '</select>';
+        if (isset($torlessiker)) {
+            if ($torlessiker === TRUE) {
+                echo "<p style='text-align: center; font-size: 20px'>Sikeres törlés!</p>";
+            } else {
+                echo "<p style='text-align: center; font-size: 20px'>Sikertelen törlés!</p>";
+            }
+        }
+        ?>
+        <input type="submit" value="Program törlése" name="program-torlese-gomb">
     </fieldset>
   </form>
 </main>
