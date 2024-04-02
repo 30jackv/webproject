@@ -15,6 +15,9 @@
         if (!isset($_POST["felhasznalonev-regisztracio"]) || trim($_POST["felhasznalonev-regisztracio"]) === "") {
             $hibak[] = "Kötelező megadni a felhasználónevet!";
         }
+        if (isset( $_POST["felhasznalonev-regisztracio"]) && (count(explode(" ", $_POST["felhasznalonev-regisztracio"])) > 1)) {
+            $hibak[] = "Felhasználónévben nem lehet szóköz!";
+        }
         if (!isset($_POST["jelszo-regisztracio"])  || trim($_POST["jelszo-regisztracio"]) === "") {
             $hibak[] = "Kötelező megadni a jelszót!";
         }
