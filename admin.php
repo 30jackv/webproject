@@ -2,108 +2,124 @@
     session_start();
 
     $programfile = "fiokok/programok.json";
+    $adminfile = "fiokok/admin.json";
     $ujprogramhibak = [];
 
-    if (isset($_POST["uj-program-gomb"])) {
+    $adminok = json_decode(file_get_contents($adminfile), true);
 
-        if (!isset($_POST["uj-program-nev"]) || trim($_POST["uj-program-nev"]) === "") {
-            $ujprogramhibak[] = "Kötelező megadni az új program nevét!";
+    $admine = false;
+
+    foreach ($adminok["adminok"] as $admin) {
+        if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+            $admine = true;
+            break;
+        }
+    }
+
+    if (isset($admine) && ($admine === true)) {
+        if (isset($_POST["uj-program-gomb"])) {
+
+            if (!isset($_POST["uj-program-nev"]) || trim($_POST["uj-program-nev"]) === "") {
+                $ujprogramhibak[] = "Kötelező megadni az új program nevét!";
+            }
+
+            if (!isset($_POST["uj-program-ar"]) || trim($_POST["uj-program-ar"]) === "") {
+                $ujprogramhibak[] = "Kötelező megadni az új program árát!";
+            }
+
+            if (!isset($_POST["uj-program-datum"]) || trim($_POST["uj-program-datum"]) === "") {
+                $ujprogramhibak[] = "Kötelező megadni az új program dátumát!";
+            }
+
+            if (!isset($_POST["uj-program-datum"])) {
+                $ujprogramhibak[] = "Nem megfelelő dátum formátum!";
+            }
+
+            $uj_program_nev = $_POST["uj-program-nev"];
+            $uj_program_ar = $_POST["uj-program-ar"];
+            $uj_program_datum = $_POST["uj-program-datum"];
+
+            if ((isset($_POST["uj-program-ar"]) && trim($_POST["uj-program-ar"]) !== "") && $uj_program_ar < 0 || is_float($uj_program_ar)) {
+                $ujprogramhibak[] = "Csak 0 vagy pozitív egész szám lehet az ár!";
+            }
+
+            if ($uj_program_ar === "0") {
+                $uj_program_ar = "ingyenes";
+            }
+            $program = [
+                    "program-nev" => $uj_program_nev,
+                "program-ar" => $uj_program_ar,
+                "program-datum" => $uj_program_datum
+            ];
+
+            if (count($ujprogramhibak) === 0) {
+                $uj_program_siker = true;
+                $programok = json_decode(file_get_contents($programfile), true);
+                $programok["programok"][] = $program;
+                $json_data = json_encode($programok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+                file_put_contents($programfile, $json_data);
+            } else {
+                $uj_program_siker = false;
+            }
+        }
+        $programfrissiteshibak = [];
+
+        if (isset($_POST["program-frissites-gomb"])) {
+            if (!isset($_POST["program-nev"]) || trim($_POST["program-nev"]) === "") {
+                $programfrissiteshibak[] = "Kötelező megadni a program nevét!";
+            } else {
+                $program_nev = $_POST["program-nev"];
+                $programoktomb = json_decode(file_get_contents($programfile), true);
+            }
+            if (count($programfrissiteshibak) === 0) {
+                $program_frissites_siker = true;
+
+                foreach ($programoktomb["programok"] as &$program) {
+                    if ($program["program-nev"] === $program_nev) {
+                        if (isset($_POST["nev-frissites"]) && (trim($_POST["nev-frissites"]) !== "")) {
+                            $program["program-nev"] = $_POST["nev-frissites"];
+                        }
+                        if (isset($_POST["ar-frissites"]) && (trim($_POST["ar-frissites"]) !== "")) {
+                            $program["program-ar"] = $_POST["ar-frissites"];
+                        }
+                        if (isset($_POST["datum-frissites"]) && (trim($_POST["datum-frissites"]) !== "")) {
+                            $program["program-datum"] = $_POST["datum-frissites"];
+                        }
+                        break;
+                    }
+                    unset($program);
+                }
+
+                file_put_contents($programfile, json_encode($programoktomb, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+            } else {
+                $program_frissites_siker = false;
+            }
         }
 
-        if (!isset($_POST["uj-program-ar"]) || trim($_POST["uj-program-ar"]) === "") {
-            $ujprogramhibak[] = "Kötelező megadni az új program árát!";
-        }
-
-        if (!isset($_POST["uj-program-datum"]) || trim($_POST["uj-program-datum"]) === "") {
-            $ujprogramhibak[] = "Kötelező megadni az új program dátumát!";
-        }
-
-        if (!isset($_POST["uj-program-datum"])) {
-            $ujprogramhibak[] = "Nem megfelelő dátum formátum!";
-        }
-
-        $uj_program_nev = $_POST["uj-program-nev"];
-        $uj_program_ar = $_POST["uj-program-ar"];
-        $uj_program_datum = $_POST["uj-program-datum"];
-
-        if ((isset($_POST["uj-program-ar"]) && trim($_POST["uj-program-ar"]) !== "") && $uj_program_ar < 0 || is_float($uj_program_ar)) {
-            $ujprogramhibak[] = "Csak 0 vagy pozitív egész szám lehet az ár!";
-        }
-
-        if ($uj_program_ar === "0") {
-            $uj_program_ar = "ingyenes";
-        }
-        $program = [
-                "program-nev" => $uj_program_nev,
-            "program-ar" => $uj_program_ar,
-            "program-datum" => $uj_program_datum
-        ];
-
-        if (count($ujprogramhibak) === 0) {
-            $uj_program_siker = true;
+        if (isset($_POST["program-torlese-gomb"])) {
             $programok = json_decode(file_get_contents($programfile), true);
-            $programok["programok"][] = $program;
-            $json_data = json_encode($programok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-            file_put_contents($programfile, $json_data);
-        } else {
-            $uj_program_siker = false;
-        }
-    }
-    $programfrissiteshibak = [];
+            $ujprogramok = [];
 
-    if (isset($_POST["program-frissites-gomb"])) {
-        if (!isset($_POST["program-nev"]) || trim($_POST["program-nev"]) === "") {
-            $programfrissiteshibak[] = "Kötelező megadni a program nevét!";
-        }
-        $program_nev = $_POST["program-nev"];
-        $programoktomb = json_decode(file_get_contents($programfile), true);
+            $torlessiker = false;
 
-        if (count($programfrissiteshibak) === 0) {
-            $program_frissites_siker = true;
-
-            foreach ($programoktomb["programok"] as &$program) {
-                if ($program["program-nev"] === $program_nev) {
-                    if (isset($_POST["nev-frissites"]) && (trim($_POST["nev-frissites"]) !== "")) {
-                        $program["program-nev"] = $_POST["nev-frissites"];
+            if (isset($_POST["torlendo-program-nev"]) && (trim($_POST["torlendo-program-nev"]) !== "")) {
+                $program_nev = $_POST["torlendo-program-nev"];
+                foreach ($programok["programok"] as $program) {
+                    if ($program["program-nev"] !== $program_nev) {
+                        $ujprogramok[] = $program;
+                    } else {
+                        $torlessiker = true;
                     }
-                    if (isset($_POST["ar-frissites"]) && (trim($_POST["ar-frissites"]) !== "")) {
-                        $program["program-ar"] = $_POST["ar-frissites"];
-                    }
-                    if (isset($_POST["datum-frissites"]) && (trim($_POST["datum-frissites"]) !== "")) {
-                        $program["program-datum"] = $_POST["datum-frissites"];
-                    }
-                    break;
-                }
-                unset($program);
-            }
-
-            file_put_contents($programfile, json_encode($programoktomb, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        } else {
-            $program_frissites_siker = false;
-        }
-    }
-
-    if (isset($_POST["program-torlese-gomb"])) {
-        $programok = json_decode(file_get_contents($programfile), true);
-        $ujprogramok = [];
-
-        $torlessiker = false;
-
-        if (isset($_POST["torlendo-program-nev"]) && (trim($_POST["torlendo-program-nev"]) !== "")) {
-            $program_nev = $_POST["torlendo-program-nev"];
-            foreach ($programok["programok"] as $program) {
-                if ($program["program-nev"] !== $program_nev) {
-                    $ujprogramok[] = $program;
-                } else {
-                    $torlessiker = true;
                 }
             }
-        }
 
-        if ($torlessiker === true) {
-            $json_data = json_encode(["programok" => $ujprogramok], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-            file_put_contents($programfile, $json_data);
+            if ($torlessiker === true) {
+                $json_data = json_encode(["programok" => $ujprogramok], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+                file_put_contents($programfile, $json_data);
+            }
         }
+    } else {
+        header("Location: index.php");
     }
 
 ?>
@@ -134,7 +150,9 @@
     <?php } else { ?>
         <a href="kosar.php">Kosár</a>
         <a href="profil.php">Profil</a>
-        <a class="active">Admin</a>
+        <?php if (isset($admine) && ($admine === true)) {?>
+            <a class="active">Admin</a>
+        <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
     <?php } ?>
 

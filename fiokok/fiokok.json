@@ -2,7 +2,7 @@
     "users": [
         {
             "felhasznalonev": "123",
-            "jelszo": "$2y$10$AE3pNc.o3kT\/Phk4\/ZFd0OPqD8GO7VJ3yRTOnwiXKN0C2xLlvNPZC",
+            "jelszo": "$2y$10$ab9G9kVk.MhDny15\/edWM.6JaZOaoQc7A65ltLPEFeQdY9lz8h3VG",
             "lakcim": [
                 "123",
                 "123",
@@ -11,6 +11,20 @@
             "teljesnev": [
                 "123",
                 "123"
+            ]
+        },
+        {
+            "felhasznalonev": "admin",
+            "jelszo": "$2y$10$X0ARkyAxS.XyVJUoHQJKBu9Ywpjt17A.AgI6roFA2dQTZCwXHo7rW",
+            "lakcim": [
+                "szeged",
+                "paprika",
+                "12"
+            ],
+            "teljesnev": [
+                "admin",
+                "a",
+                "jelszo"
             ]
         }
     ]

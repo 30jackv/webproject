@@ -2,6 +2,19 @@
     session_start();
     $usersfile = "fiokok/fiokok.json";
 
+    $adminfile = "fiokok/admin.json";
+
+    $adminok = json_decode(file_get_contents($adminfile), true);
+
+    $admine = false;
+
+    foreach ($adminok["adminok"] as $admin) {
+        if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+            $admine = true;
+            break;
+        }
+    }
+
     $fiokok = json_decode(file_get_contents($usersfile), true);
 
     if (isset($_POST["fnev-valtoztatas"]) && (trim($_POST["fnev-valtoztatas"]) !== "")) {
@@ -60,7 +73,9 @@
     <?php } else { ?>
         <a href="kosar.php">Kosár</a>
         <a class="active">Profil</a>
-        <a href="admin.php">Admin</a>
+        <?php if (isset($admine) && ($admine === true)) {?>
+            <a href="admin.php">Admin</a>
+        <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
     <?php } ?>
 </nav>

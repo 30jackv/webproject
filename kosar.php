@@ -3,6 +3,19 @@
 
     $kosarfile = "fiokok/kosarak.json";
 
+    $adminfile = "fiokok/admin.json";
+
+    $adminok = json_decode(file_get_contents($adminfile), true);
+
+    $admine = false;
+
+    foreach ($adminok["adminok"] as $admin) {
+        if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+            $admine = true;
+            break;
+        }
+    }
+
     $kosar = [
         "felhasznalonev" => $_SESSION["felhasznalo"]["felhasznalonev"],
     ];
@@ -94,7 +107,9 @@
     <?php } else { ?>
         <a class="active">Kosár</a>
         <a href="profil.php">Profil</a>
-        <a href="admin.php">Admin</a>
+        <?php if (isset($admine) && ($admine === true)) {?>
+            <a href="admin.php">Admin</a>
+        <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
     <?php } ?>
 </nav>

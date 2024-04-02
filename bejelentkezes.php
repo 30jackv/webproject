@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    
+
     $usersfile = "fiokok/fiokok.json";
 
     // regisztracio
@@ -126,7 +128,9 @@
     <?php } else { ?>
         <a href="kosar.php">Kosár</a>
         <a href="profil.php">Profil</a>
-        <a href="admin.php">Admin</a>
+        <?php if (isset($admine) && ($admine === true)) {?>
+            <a href="admin.php">Admin</a>
+        <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
     <?php } ?>
 </nav>
