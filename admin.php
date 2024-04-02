@@ -6,19 +6,19 @@
 
     if (isset($_POST["uj-program-gomb"])) {
 
-        if (!isset($_POST["uj-program-nev"]) && trim($_POST["uj-program-nev"]) !== "") {
-            $ujprogramhibak = "Kötelező megadni az új program nevét!";
+        if (!isset($_POST["uj-program-nev"]) || trim($_POST["uj-program-nev"]) === "") {
+            $ujprogramhibak[] = "Kötelező megadni az új program nevét!";
         }
 
-        if (!isset($_POST["uj-program-ar"]) && trim($_POST["uj-program-ar"]) !== "") {
-            $ujprogramhibak = "Kötelező megadni az új program árát!";
+        if (!isset($_POST["uj-program-ar"]) || trim($_POST["uj-program-ar"]) === "") {
+            $ujprogramhibak[] = "Kötelező megadni az új program árát!";
         }
 
-        if (!isset($_POST["uj-program-datum"]) && trim($_POST["uj-program-datum"]) !== "") {
+        if (!isset($_POST["uj-program-datum"]) || trim($_POST["uj-program-datum"]) === "") {
             $ujprogramhibak[] = "Kötelező megadni az új program dátumát!";
         }
 
-        if (count(explode($_POST["uj-program-datum"], "-")) !== 1) {
+        if (!isset($_POST["uj-program-datum"])) {
             $ujprogramhibak[] = "Nem megfelelő dátum formátum!";
         }
 
@@ -26,8 +26,8 @@
         $uj_program_ar = $_POST["uj-program-ar"];
         $uj_program_datum = $_POST["uj-program-datum"];
 
-        if ($uj_program_ar < 0 || is_float($uj_program_ar)) {
-            $ujprogramhibak[] = "Csak 0 vagy pozitív egész szám lehet!";
+        if ((isset($_POST["uj-program-ar"]) && trim($_POST["uj-program-ar"]) !== "") && $uj_program_ar < 0 || is_float($uj_program_ar)) {
+            $ujprogramhibak[] = "Csak 0 vagy pozitív egész szám lehet az ár!";
         }
 
         if ($uj_program_ar === "0") {
@@ -52,8 +52,8 @@
     $programfrissiteshibak = [];
 
     if (isset($_POST["program-frissites-gomb"])) {
-        if (!isset($_POST["program-nev"]) && trim($_POST["program-nev"]) !== "") {
-            $programfrissiteshibak = "Kötelező megadni a program nevét!";
+        if (!isset($_POST["program-nev"]) || trim($_POST["program-nev"]) === "") {
+            $programfrissiteshibak[] = "Kötelező megadni a program nevét!";
         }
         $program_nev = $_POST["program-nev"];
         $programoktomb = json_decode(file_get_contents($programfile), true);
@@ -86,15 +86,17 @@
     if (isset($_POST["program-torlese-gomb"])) {
         $programok = json_decode(file_get_contents($programfile), true);
         $ujprogramok = [];
-        $program_nev = $_POST["torlendo-program-nev"];
 
         $torlessiker = false;
 
-        foreach ($programok["programok"] as $program) {
-            if ($program["program-nev"] !== $program_nev) {
-                $ujprogramok[] = $program;
-            } else {
-                $torlessiker = true;
+        if (isset($_POST["torlendo-program-nev"]) && (trim($_POST["torlendo-program-nev"]) !== "")) {
+            $program_nev = $_POST["torlendo-program-nev"];
+            foreach ($programok["programok"] as $program) {
+                if ($program["program-nev"] !== $program_nev) {
+                    $ujprogramok[] = $program;
+                } else {
+                    $torlessiker = true;
+                }
             }
         }
 
