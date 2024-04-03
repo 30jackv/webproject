@@ -20,7 +20,7 @@
         }
     }
 
-    if (isset($admine) && ($admine === true)) {
+    if ($admine === true) {
         if (isset($_POST["uj-program-gomb"])) {
 
             if (!isset($_POST["uj-program-nev"]) || trim($_POST["uj-program-nev"]) === "") {
@@ -78,23 +78,29 @@
             if (count($programfrissiteshibak) === 0) {
                 $program_frissites_siker = true;
 
-                foreach ($programoktomb["programok"] as &$program) {
-                    if ($program["program-nev"] === $program_nev) {
-                        if (isset($_POST["nev-frissites"]) && (trim($_POST["nev-frissites"]) !== "")) {
-                            $program["program-nev"] = $_POST["nev-frissites"];
+                if (isset($programoktomb)) {
+                    foreach ($programoktomb["programok"] as &$program) {
+                        if (isset($program_nev)) {
+                            if ($program["program-nev"] === $program_nev) {
+                                if (isset($_POST["nev-frissites"]) && (trim($_POST["nev-frissites"]) !== "")) {
+                                    $program["program-nev"] = $_POST["nev-frissites"];
+                                }
+                                if (isset($_POST["ar-frissites"]) && (trim($_POST["ar-frissites"]) !== "")) {
+                                    $program["program-ar"] = $_POST["ar-frissites"];
+                                }
+                                if (isset($_POST["datum-frissites"]) && (trim($_POST["datum-frissites"]) !== "")) {
+                                    $program["program-datum"] = $_POST["datum-frissites"];
+                                }
+                                break;
+                            }
                         }
-                        if (isset($_POST["ar-frissites"]) && (trim($_POST["ar-frissites"]) !== "")) {
-                            $program["program-ar"] = $_POST["ar-frissites"];
-                        }
-                        if (isset($_POST["datum-frissites"]) && (trim($_POST["datum-frissites"]) !== "")) {
-                            $program["program-datum"] = $_POST["datum-frissites"];
-                        }
-                        break;
+                        unset($program);
                     }
-                    unset($program);
                 }
 
-                file_put_contents($programfile, json_encode($programoktomb, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                if (isset($programoktomb)) {
+                    file_put_contents($programfile, json_encode($programoktomb, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                }
             } else {
                 $program_frissites_siker = false;
             }
@@ -187,8 +193,10 @@
         if (isset($program_frissites_siker) && $program_frissites_siker === TRUE) {  // ha nem volt hiba, akkor a regisztráció sikeres
             echo "<p style='text-align: center; font-size: 20px'>Sikeres frissítés!</p>";
         } else {                                // az esetleges hibákat kiírjuk egy-egy bekezdésben
-            foreach ($programfrissiteshibak as $hiba) {
-                echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";
+            if (isset($programfrissiteshibak)) {
+                foreach ($programfrissiteshibak as $hiba) {
+                    echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";
+                }
             }
         }
         ?>
@@ -229,6 +237,9 @@
             echo '<option value="' . $program["program-nev"] . '">' . $program["program-nev"] . ' </option>' ;
         }
         echo '</select>';
+        ?>
+        <input type="submit" value="Program törlése" name="program-torlese-gomb">
+        <?php
         if (isset($torlessiker)) {
             if ($torlessiker === TRUE) {
                 echo "<p style='text-align: center; font-size: 20px'>Sikeres törlés!</p>";
@@ -237,7 +248,6 @@
             }
         }
         ?>
-        <input type="submit" value="Program törlése" name="program-torlese-gomb">
     </fieldset>
   </form>
 </main>
