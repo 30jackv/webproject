@@ -4,10 +4,17 @@
 
     $adminfile = "fiokok/admin.json";
 
-    $adminok = json_decode(file_get_contents($adminfile), true);
+    $elfogadott_kiterjesztesek = ["jpg", "jpeg", "png"];
+
+    $adminok = json_decode(file_get_contents($adminfile), true); // adminok tömb
 
     $admine = false;
 
+    if (!isset($_SESSION["felhasznalo"])) {
+        header("Location: index.php");
+    }
+
+    // ha admin
     foreach ($adminok["adminok"] as $admin) {
         if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
             $admine = true;
@@ -17,34 +24,95 @@
 
     $fiokok = json_decode(file_get_contents($usersfile), true);
 
-    if (isset($_POST["fnev-valtoztatas"]) && (trim($_POST["fnev-valtoztatas"]) !== "")) {
-        foreach ($fiokok["users"] as &$fiok) {
-            if ($fiok["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-                $fiok["felhasznalonev"] = $_POST["fnev-valtoztatas"];
 
-                file_put_contents($usersfile, json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-                $_SESSION["felhasznalo"]["felhasznalonev"] = $_POST["fnev-valtoztatas"];
-                $nev_valtoztatas_siker = true;
-                break;
+    // név változtatás
+        if (isset($_POST["fnev-valtoztatas"]) && (trim($_POST["fnev-valtoztatas"]) !== "")) {
+            $nev_valtoztatas_siker = true;
+            $_POST["fnev-valtoztatas"] = trim($_POST["fnev-valtoztatas"]);
+            foreach ($fiokok["users"] as $fiok) {
+                if ($fiok["felhasznalonev"] === $_POST["fnev-valtoztatas"]) {
+                    $nev_valtoztatas_siker = false;
+                }
+            }
+
+            if (count(explode(" ", $_POST["fnev-valtoztatas"])) !== 1) {
+                $nev_valtoztatas_siker = false;
+            }
+
+            if ($nev_valtoztatas_siker === TRUE) {
+                foreach ($fiokok["users"] as &$fiok) {
+                    if ($fiok["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+
+                        foreach ($elfogadott_kiterjesztesek as $value) {
+                            if (file_exists("profilkepek/" . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value)) {
+                                rename("profilkepek/" . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value,
+                                    "profilkepek/" . $_POST["fnev-valtoztatas"] . "." . $value);
+                            }
+                        }
+
+                        $fiok["felhasznalonev"] = $_POST["fnev-valtoztatas"];
+
+                        file_put_contents($usersfile, json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                        $_SESSION["felhasznalo"]["felhasznalonev"] = $_POST["fnev-valtoztatas"];
+
+
+                        break;
+                    }
+                }
+                unset($fiok);
             }
         }
-        unset($fiok);
-    }
 
-    if (isset($_POST["jelszo-valtoztatas"]) && (trim($_POST["jelszo-valtoztatas"]) !== "")) {
-        foreach ($fiokok["users"] as &$fiok) {
-            if ($fiok["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-                $jelszo = password_hash($_POST["jelszo-valtoztatas"], PASSWORD_DEFAULT);
-                $fiok["jelszo"] = $jelszo;
+        // jelszo valtoztatas
+        if (isset($_POST["jelszo-valtoztatas"]) && (trim($_POST["jelszo-valtoztatas"]) !== "")) {
+            foreach ($fiokok["users"] as &$fiok) {
+                if ($fiok["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+                    $jelszo = password_hash($_POST["jelszo-valtoztatas"], PASSWORD_DEFAULT);
+                    $fiok["jelszo"] = $jelszo;
 
-                file_put_contents($usersfile, json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-                $_SESSION["felhasznalo"]["jelszo"] = $jelszo;
-                $jelszo_valtoztatas_siker = true;
-                break;
+                    file_put_contents($usersfile, json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                    $_SESSION["felhasznalo"]["jelszo"] = $jelszo;
+                    $jelszo_valtoztatas_siker = true;
+                    break;
+                }
+            }
+            unset($fiok);
+        }
+
+        // profilkep fajlkezeles
+        $profilkephibak = [];
+        $profilkeputvonal = "profilkepek/" . $_SESSION["felhasznalo"]["felhasznalonev"];
+        $profilkepsiker = false;
+
+        if (isset($_FILES["profilkep-valtoztatas"]) && $_FILES["profilkep-valtoztatas"]["error"] === 0) {
+            $profilkepfile = $_FILES["profilkep-valtoztatas"];
+            $fajlkiterjesztes = explode(".", $profilkepfile["name"]);
+            $fajlkiterjesztes = end($fajlkiterjesztes);
+
+            $megfelelokiterjesztes = false;
+            foreach ($elfogadott_kiterjesztesek as $value) {
+                if ($value === $fajlkiterjesztes) {
+                    $megfelelokiterjesztes = true;
+                    break;
+                }
+            }
+
+            if ($profilkepfile["size"] > 2097152) {
+                $profilkephibak[] = "A kép nem lépheti túl a 2 mb méretet!";
+            }
+
+            if ($megfelelokiterjesztes === false) {
+                $profilkephibak[] = ".jpeg .jpg és .png fájl kiterjesztés megengedett!";
+            }
+
+            if (count($profilkephibak) === 0 && $megfelelokiterjesztes) {
+                if (move_uploaded_file($_FILES["profilkep-valtoztatas"]["tmp_name"], $profilkeputvonal . "." . $fajlkiterjesztes)) {
+                    $profilkepsiker = true;
+                } else {
+                    $profilkephibak[] = "Nem sikerült feltölteni a fájlt!";
+                }
             }
         }
-        unset($fiok);
-    }
 ?>
 <!DOCTYPE html>
 
@@ -81,11 +149,26 @@
 </nav>
 
 <main>
-  <form id="profil-szerkesztes-urlap" method="POST" autocomplete="off">
+  <form id="profil-szerkesztes-urlap" action="profil.php" method="POST" autocomplete="off" enctype="multipart/form-data">
     <fieldset>
       <legend>Profil szerkesztése</legend>
 
-      <img src="img/giraffe.png" alt="Zsiráf">
+        <?php
+        $letezikfelhasznalokep = false;
+            foreach ($elfogadott_kiterjesztesek as $value) {
+                if (file_exists("profilkepek/" . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value)) {
+                    $letezikfelhasznalokep = true;
+                    break;
+                }
+            }
+            if ($letezikfelhasznalokep) {
+                echo '<img src="profilkepek/' . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value . '" alt ="Profilkép">';
+
+            } else {
+                echo "<img src='img/giraffe.png' alt='Profilkép'>";
+            }
+        ?>
+
         <?php
         echo '<h2>'.$_SESSION["felhasznalo"]["felhasznalonev"] . '</h2>';
         ?>
@@ -98,9 +181,9 @@
       <input type="password" placeholder="*******" id="jelszo" name="jelszo-valtoztatas"> <br>
 
       <label for="profilkep">Profilkép megváltoztatása:</label>
-      <input type="file" id="profilkep" name="profilkep-valtoztatas"> <br>
+      <input type="file" id="profilkep" name="profilkep-valtoztatas" accept="image/*"> <br>
 
-      <input type="submit" value="Változtatás" name="profil-szerkersztes">
+      <input type="submit" value="Változtatás" name="profil-szerkesztes">
       <input type="reset" value="Reset">
         <?php
         if (isset($nev_valtoztatas_siker)) {
@@ -116,6 +199,18 @@
                 echo "<p style='text-align: center; font-size: 20px'>Sikeres jelszó változtatás!</p>";
             } else {
                 echo "<p style='text-align: center; font-size: 20px'>Sikertelen jelszó változtatás!</p>";
+            }
+        }
+
+        if (isset($profilkepsiker)) {
+            if ($profilkepsiker === TRUE) {
+                echo "<p style='text-align: center; font-size: 20px'>Sikeres profilkép változtatás!</p>";
+            } else {
+                if (isset($profilkephibak)) {
+                    foreach ($profilkephibak as $hiba) {
+                        echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";
+                    }
+                }
             }
         }
         ?>

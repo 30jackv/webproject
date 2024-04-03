@@ -7,6 +7,10 @@
 
     $adminok = json_decode(file_get_contents($adminfile), true);
 
+    if (!isset($_SESSION["felhasznalo"])) {
+        header("Location: index.php");
+    }
+
     $admine = false;
 
     foreach ($adminok["adminok"] as $admin) {

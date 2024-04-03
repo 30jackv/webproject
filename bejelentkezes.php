@@ -29,7 +29,7 @@
         $lakcim_tomb = explode(", ", $_POST["lakcim"]);
         $teljesnev = $_POST["teljes-nev"];
         $lakcim = $_POST["lakcim"];
-        $felhasznalonev_regisztracio = $_POST["felhasznalonev-regisztracio"];
+        $felhasznalonev_regisztracio = trim($_POST["felhasznalonev-regisztracio"]);
         $jelszo1 = $_POST["jelszo-regisztracio"];
         $jelszo2 = $_POST["jelszo-regisztracio-megerosites"];
 

@@ -9,6 +9,10 @@
 
     $admine = false;
 
+    if (!isset($_SESSION["felhasznalo"])) {
+        header("Location: index.php");
+    }
+
     foreach ($adminok["adminok"] as $admin) {
         if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
             $admine = true;
