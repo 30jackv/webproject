@@ -107,9 +107,25 @@
 
             if (count($profilkephibak) === 0 && $megfelelokiterjesztes) {
                 if (move_uploaded_file($_FILES["profilkep-valtoztatas"]["tmp_name"], $profilkeputvonal . "." . $fajlkiterjesztes)) {
+                    $ujletrehozottfajl = $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $fajlkiterjesztes;
                     $profilkepsiker = true;
                 } else {
                     $profilkephibak[] = "Nem sikerült feltölteni a fájlt!";
+                }
+            }
+        }
+        $tobbfajloklistaja = [];
+        foreach ($elfogadott_kiterjesztesek as $value) {
+            if (file_exists("profilkepek/" . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value)) {
+                $tobbfajloklistaja[] = $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value;
+            }
+        }
+        if ($profilkepsiker && count($tobbfajloklistaja) >= 2) {
+            foreach($tobbfajloklistaja as $value) {
+                if (isset($ujletrehozottfajl)) {
+                    if ($value !== $ujletrehozottfajl) {
+                        unlink("profilkepek/" . $value);
+                    }
                 }
             }
         }
