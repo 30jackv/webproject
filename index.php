@@ -42,7 +42,7 @@
     <?php } else { ?>
         <a href="kosar.php">Kosár</a>
         <a href="profil.php">Profil</a>
-        <?php if (isset($admine) && ($admine === true)) {?>
+        <?php if ($admine === true) {?>
         <a href="admin.php">Admin</a>
         <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
