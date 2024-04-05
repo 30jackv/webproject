@@ -33,25 +33,25 @@
         if ((isset($_POST["diakjegy"]) && (!is_numeric($_POST["diakjegy"]) && trim($_POST["diakjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Diákjegy!";
         } elseif (isset($_POST["diakjegy"]) && ($_POST["diakjegy"] >= 1 && $_POST["diakjegy"] <= 5)) {
-            $kosar["diakjegy"] = $_POST["diakjegy"];
+            $kosar["jegyek"]["diakjegy"] = $_POST["diakjegy"];
         }
 
         if ((isset($_POST["felnottjegy"]) && (!is_numeric($_POST["felnottjegy"]) && trim($_POST["felnottjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Felnőttjegy!";
         } elseif (isset($_POST["felnottjegy"]) && ($_POST["felnottjegy"] >= 1 && $_POST["felnottjegy"] <= 5)) {
-            $kosar["felnottjegy"] = $_POST["felnottjegy"];
+            $kosar["jegyek"]["felnottjegy"] = $_POST["felnottjegy"];
         }
 
         if ((isset($_POST["csaladijegy"]) && (!is_numeric($_POST["csaladijegy"]) && trim($_POST["csaladijegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Családijegy!";
         } elseif (isset($_POST["csaladijegy"]) && ($_POST["csaladijegy"] >= 1 && $_POST["csaladijegy"] <= 5)) {
-            $kosar["csaladijegy"] = $_POST["csaladijegy"];
+            $kosar["jegyek"]["csaladijegy"] = $_POST["csaladijegy"];
         }
 
         if ((isset($_POST["nyugdijasjegy"]) && (!is_numeric($_POST["nyugdijasjegy"]) && trim($_POST["nyugdijasjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Nyugdíjasjegy!";
         } elseif (isset($_POST["nyugdijasjegy"]) && ($_POST["nyugdijasjegy"] >= 1 && $_POST["nyugdijasjegy"] <= 5)) {
-            $kosar["nyugdijasjegy"] = $_POST["nyugdijasjegy"];
+            $kosar["jegyek"]["nyugdijasjegy"] = $_POST["nyugdijasjegy"];
         }
 
         if ((!isset($_POST["kiszallitas-mod"]) && (!isset($_POST["express"]) || !isset($_POST["normal"])) )) {

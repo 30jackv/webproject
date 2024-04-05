@@ -4,6 +4,8 @@
 
     $adminfile = "fiokok/admin.json";
 
+    $kosarakfile = "fiokok/kosarak.json";
+
     $elfogadott_kiterjesztesek = ["jpg", "jpeg", "png"];
 
     $adminok = json_decode(file_get_contents($adminfile), true); // adminok tömb
@@ -241,13 +243,53 @@
             <th>Összeg</th>
           </tr>
           <tr>
-            <td>10</td>
-            <td>2 millió</td>
+              <?php
+              $kosarak = json_decode(file_get_contents($kosarakfile), true);
+
+              $diakjegyar = 3500;
+              $felnottjegyar = 4800;
+              $csaladijegyar = 11600;
+              $nyugdijasjegyar = 3500;
+
+              $osszesar = 0;
+              $osszesdarab = 0;
+
+              foreach ($kosarak["kosarak"] as $kosar) {
+                  if ($kosar["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+                      foreach ($kosar["jegyek"] as $jegyTipus => $jegyOsszeg) {
+                          if ($jegyTipus === "diakjegy") {
+                              $osszesdarab += $jegyOsszeg;
+                              $osszesar += $jegyOsszeg*$diakjegyar;
+                          }
+                          if ($jegyTipus === "felnottjegy") {
+                              $osszesdarab += $jegyOsszeg;
+                              $osszesar += $jegyOsszeg*$felnottjegyar;
+                          }
+                          if ($jegyTipus === "csaladijegy") {
+                              $osszesdarab += $jegyOsszeg;
+                              $osszesar += $jegyOsszeg*$csaladijegyar;
+                          }
+                          if ($jegyTipus === "nyugdijasjegy") {
+                              $osszesdarab += $jegyOsszeg;
+                              $osszesar += $jegyOsszeg*$nyugdijasjegyar;
+                          }
+                      }
+                  }
+              }
+
+              echo '<td>' . $osszesdarab . '</td>';
+              echo '<td>' . $osszesar . '</td>';
+
+              ?>
           </tr>
           </thead>
         </table>
+          <?php
+          $kosarak = json_decode(file_get_contents($kosarakfile), true);
+          if (!empty($kosarak["kosarak"])) { ?>
         <table>
           <thead>
+
           <tr>
             <th>Jegy</th>
             <th>Szállítás</th>
@@ -256,68 +298,63 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>Felnőtt</td>
-            <td>Expressz</td>
-            <td>2</td>
-            <td>1000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
-          <tr>
-            <td>Diák</td>
-            <td>Expressz</td>
-            <td>1</td>
-            <td>10000</td>
-          </tr>
+          <?php
+          $kosarak = json_decode(file_get_contents($kosarakfile), true);
+
+          $diakjegyar = 3500;
+          $felnottjegyar = 4800;
+          $csaladijegyar = 11600;
+          $nyugdijasjegyar = 3500;
+
+          foreach ($kosarak["kosarak"] as $kosar) {
+              if ($kosar["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+                  // A jegyek kiírása
+                  if (isset($kosar["jegyek"]["diakjegy"])) {
+                      echo '<tr>';
+                      echo '<td>' . 'Diákjegy' . '</td>';
+                      echo '<td>' . $kosar["kiszallitas-mod"] . '</td>';
+                      echo '<td>' . $kosar["jegyek"]["diakjegy"] . '</td>';
+                      echo '<td>' . $kosar["jegyek"]["diakjegy"]*$diakjegyar . '</td>';
+                      echo '</tr>';
+
+                  }
+                  if (isset($kosar["jegyek"]["felnottjegy"])) {
+                      echo '<tr>';
+
+                      echo '<td>' . 'Felnőttjegy' . '</td>';
+                      echo '<td>' . $kosar["kiszallitas-mod"] . '</td>';
+                      echo '<td>' . $kosar["jegyek"]["felnottjegy"] . '</td>';
+                      echo '<td>' . $kosar["jegyek"]["felnottjegy"]*$felnottjegyar . '</td>';
+                      echo '</tr>';
+
+                  }
+                  if (isset($kosar["jegyek"]["csaladijegy"])) {
+                      echo '<tr>';
+
+                      echo '<td>' . 'Családijegy' . '</td>';
+                      echo '<td>' . $kosar["kiszallitas-mod"] . '</td>';
+                      echo '<td>' . $kosar["jegyek"]["csaladijegy"] . '</td>';
+                      echo '<td>' . $kosar["jegyek"]["csaladijegy"]*$csaladijegyar . '</td>';
+                      echo '</tr>';
+
+                  }
+                  if (isset($kosar["jegyek"]["nyugdijasjegy"])) {
+                      echo '<tr>';
+
+                      echo '<td>' . 'Nyugdíjasjegy' . '</td>';
+                      echo '<td>' . $kosar["kiszallitas-mod"] . '</td>';
+                      echo '<td>' . $kosar["jegyek"]["nyugdijasjegy"] . '</td>';
+                      echo '<td>' . $kosar["jegyek"]["nyugdijasjegy"]*$nyugdijasjegyar . '</td>';
+                      echo '</tr>';
+
+
+                  }
+              }
+          }
+          ?>
           </tbody>
         </table>
+          <?php } ?>
       </div>
     </fieldset>
   </form>

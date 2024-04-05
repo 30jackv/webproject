@@ -72,46 +72,32 @@
 
   <footer>
     <h1>Programok</h1>
+      <?php
+      if (empty($programok["programok"])) {
+          echo '<h1 style="text-align: center;">' . 'Jelenleg nincs program' .'</h1>';
+      }
+      ?>
     <div id="programok">
-      <div class="program-container">
-        <div class="program-container-cim">
-          <h3>Pingvin simogató</h3>
-        </div>
-        <div class="ar-container">
-          <p>Ár:</p>
-          <p>1500</p>
-        </div>
-        <div class="leiras-container">
-          <p>Dátum:</p>
-          <p>2024. 03. 18. 14:30</p>
-        </div>
-      </div>
-      <div class="program-container">
-        <div class="program-container-cim">
-          <h3>Zsiráfok etetése</h3>
-        </div>
-        <div class="ar-container">
-          <p>Ár:</p>
-          <p>1500</p>
-        </div>
-        <div class="leiras-container">
-          <p>Dátum:</p>
-          <p>2024. 03. 17. 12:30</p>
-        </div>
-      </div>
-      <div class="program-container">
-        <div class="program-container-cim">
-          <h3>Kígyóles</h3>
-        </div>
-        <div class="ar-container">
-          <p>Ár:</p>
-          <p>1500</p>
-        </div>
-        <div class="leiras-container">
-          <p>Dátum:</p>
-          <p>2024. 03. 16. 16:30</p>
-        </div>
-      </div>
+        <?php
+        $programfile = "fiokok/programok.json";
+        $programok = json_decode(file_get_contents($programfile), true);
+
+        foreach ($programok["programok"] as $program) {
+            echo '<div class="program-container">';
+            echo '<div class="program-container-cim">';
+            echo '<h3>' . $program["program-nev"] . '</h3>';
+            echo '</div>';
+            echo '<div class="ar-container">';
+            echo '<p>' . 'Ár:' . '</p>';
+            echo '<p>' . $program["program-ar"] . '</p>';
+            echo '</div>';
+            echo '<div class="leiras-container">';
+            echo '<p>' . 'Dátum:' . '</p>';
+            echo '<p>' . $program["program-datum"] . '</p>';
+            echo '</div>';
+            echo '</div>';
+        }
+        ?>
     </div>
   </footer>
 </body>

@@ -1,0 +1,12 @@
+{
+  "promokodok": [
+    {
+      "kod": "ABC123",
+      "szazalek": "10"
+    },
+    {
+      "kod": "123ABC",
+      "szazalek": "90"
+    }
+  ]
+}

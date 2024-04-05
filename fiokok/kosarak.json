@@ -1,3 +1,12 @@
 {
-    "kosarak": []
+    "kosarak": [
+        {
+            "felhasznalonev": "admin",
+            "jegyek": {
+                "diakjegy": "5",
+                "felnottjegy": "5"
+            },
+            "kiszallitas-mod": "express"
+        }
+    ]
 }
