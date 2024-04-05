@@ -73,6 +73,10 @@ footer {
   margin-bottom: 10px;
 }
 
+.ar-container p + p:after {
+  content: " Ft";
+}
+
 .program-container .leiras-container, .program-container .ar-container {
   padding: 0 20px 20px 20px;
   display: flex;

@@ -79,7 +79,7 @@
         </div>
         <div class="ar-container">
           <p>Ár:</p>
-          <p>1500 Ft</p>
+          <p>1500</p>
         </div>
         <div class="leiras-container">
           <p>Dátum:</p>
@@ -92,7 +92,7 @@
         </div>
         <div class="ar-container">
           <p>Ár:</p>
-          <p>1500 Ft</p>
+          <p>1500</p>
         </div>
         <div class="leiras-container">
           <p>Dátum:</p>
@@ -105,7 +105,7 @@
         </div>
         <div class="ar-container">
           <p>Ár:</p>
-          <p>1500 Ft</p>
+          <p>1500</p>
         </div>
         <div class="leiras-container">
           <p>Dátum:</p>
