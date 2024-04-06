@@ -1,31 +1,26 @@
 <?php
     session_start();
-    $usersfile = "fiokok/fiokok.json";
+    include 'fuggvenyek/adminellenorzes.php';
+    include 'fuggvenyek/kosarellenorzes.php';
+    include 'fuggvenyek/adatmentestoltes.php';
 
-    $adminfile = "fiokok/admin.json";
+    $usersfile = "fiokok/fiokok.json";
 
     $kosarakfile = "fiokok/kosarak.json";
 
+    $promokodfile = "fiokok/promokodok.json";
+
     $elfogadott_kiterjesztesek = ["jpg", "jpeg", "png"];
-
-    $adminok = json_decode(file_get_contents($adminfile), true); // adminok tömb
-
-    $admine = false;
 
     if (!isset($_SESSION["felhasznalo"])) {
         header("Location: index.php");
     }
 
-    // ha admin
-    foreach ($adminok["adminok"] as $admin) {
-        if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-            $admine = true;
-            break;
-        }
-    }
+    $isAdmin = isAdmin();
 
-    $fiokok = json_decode(file_get_contents($usersfile), true);
 
+    $fiokok = loadData($usersfile);
+    $kosarak = loadData($kosarakfile);
 
     // név változtatás
         if (isset($_POST["fnev-valtoztatas"]) && (trim($_POST["fnev-valtoztatas"]) !== "")) {
@@ -52,16 +47,25 @@
                             }
                         }
 
-                        $fiok["felhasznalonev"] = $_POST["fnev-valtoztatas"];
+                        foreach ($kosarak["kosarak"] as $item => &$value) {
+                            if ($value["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+                                $value["felhasznalonev"] = $_POST["fnev-valtoztatas"];
+                            }
+                        }
+                        unset($item);
 
-                        file_put_contents($usersfile, json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
                         $_SESSION["felhasznalo"]["felhasznalonev"] = $_POST["fnev-valtoztatas"];
 
+                        saveData($kosarakfile, $kosarak);
 
+                        $fiok["felhasznalonev"] = $_POST["fnev-valtoztatas"];
+
+                        saveData($usersfile, $fiokok);
+
+                        unset($fiok);
                         break;
                     }
                 }
-                unset($fiok);
             }
         }
 
@@ -71,8 +75,7 @@
                 if ($fiok["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
                     $jelszo = password_hash($_POST["jelszo-valtoztatas"], PASSWORD_DEFAULT);
                     $fiok["jelszo"] = $jelszo;
-
-                    file_put_contents($usersfile, json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                    saveData($usersfile, $fiokok);
                     $_SESSION["felhasznalo"]["jelszo"] = $jelszo;
                     $jelszo_valtoztatas_siker = true;
                     break;
@@ -92,6 +95,7 @@
             $fajlkiterjesztes = end($fajlkiterjesztes);
 
             $megfelelokiterjesztes = false;
+            unset($value);
             foreach ($elfogadott_kiterjesztesek as $value) {
                 if ($value === $fajlkiterjesztes) {
                     $megfelelokiterjesztes = true;
@@ -159,7 +163,7 @@
     <?php } else { ?>
         <a href="kosar.php">Kosár</a>
         <a class="active">Profil</a>
-        <?php if (isset($admine) && ($admine === true)) {?>
+        <?php if (isset($isAdmin) && ($isAdmin === true)) {?>
             <a href="admin.php">Admin</a>
         <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
@@ -173,18 +177,17 @@
 
         <?php
         $letezikfelhasznalokep = false;
-            foreach ($elfogadott_kiterjesztesek as $value) {
-                if (file_exists("profilkepek/" . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value)) {
-                    $letezikfelhasznalokep = true;
-                    break;
-                }
+        foreach ($elfogadott_kiterjesztesek as $value) {
+            if (file_exists("profilkepek/" . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value)) {
+                $letezikfelhasznalokep = true;
+                break;
             }
-            if ($letezikfelhasznalokep) {
-                echo '<img src="profilkepek/' . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value . '" alt ="Profilkép">';
-
-            } else {
-                echo "<img src='img/giraffe.png' alt='Profilkép'>";
-            }
+        }
+        if ($letezikfelhasznalokep) {
+            echo '<img src="profilkepek/' . $_SESSION["felhasznalo"]["felhasznalonev"] . "." . $value . '" alt ="Profilkép">';
+        } else {
+            echo "<img src='img/giraffe.png' alt='Profilkép'>";
+        }
         ?>
 
         <?php
@@ -244,49 +247,34 @@
           </tr>
           <tr>
               <?php
-              $kosarak = json_decode(file_get_contents($kosarakfile), true);
-
-              $diakjegyar = 3500;
-              $felnottjegyar = 4800;
-              $csaladijegyar = 11600;
-              $nyugdijasjegyar = 3500;
-
-              $osszesar = 0;
+              $kosarak = loadData($kosarakfile);
+              $osszesosszeg = 0;
               $osszesdarab = 0;
-
-              foreach ($kosarak["kosarak"] as $kosar) {
+              foreach($kosarak["kosarak"] as $kosar) {
                   if ($kosar["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-                      foreach ($kosar["jegyek"] as $jegyTipus => $jegyOsszeg) {
-                          if ($jegyTipus === "diakjegy") {
-                              $osszesdarab += $jegyOsszeg;
-                              $osszesar += $jegyOsszeg*$diakjegyar;
-                          }
-                          if ($jegyTipus === "felnottjegy") {
-                              $osszesdarab += $jegyOsszeg;
-                              $osszesar += $jegyOsszeg*$felnottjegyar;
-                          }
-                          if ($jegyTipus === "csaladijegy") {
-                              $osszesdarab += $jegyOsszeg;
-                              $osszesar += $jegyOsszeg*$csaladijegyar;
-                          }
-                          if ($jegyTipus === "nyugdijasjegy") {
-                              $osszesdarab += $jegyOsszeg;
-                              $osszesar += $jegyOsszeg*$nyugdijasjegyar;
-                          }
+                      $osszesosszeg += $kosar["osszeg"];
+                      foreach ($kosar["jegyek"] as $value) {
+                          $osszesdarab+=$value["darab"];
                       }
                   }
               }
-
               echo '<td>' . $osszesdarab . '</td>';
-              echo '<td>' . $osszesar . '</td>';
-
+              echo '<td>' . $osszesosszeg . '</td>';
               ?>
           </tr>
           </thead>
         </table>
           <?php
-          $kosarak = json_decode(file_get_contents($kosarakfile), true);
-          if (!empty($kosarak["kosarak"])) { ?>
+          $kosarak = loadData($kosarakfile);
+          $talaltkosarat = false;
+          foreach ($kosarak["kosarak"] as $kosar) {
+              if ($kosar["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
+                  $talaltkosarat = true;
+                  break;
+              }
+          }
+          if ($talaltkosarat) {
+          ?>
         <table>
           <thead>
 
@@ -299,62 +287,14 @@
           </thead>
           <tbody>
           <?php
-          $kosarak = json_decode(file_get_contents($kosarakfile), true);
-
-          $diakjegyar = 3500;
-          $felnottjegyar = 4800;
-          $csaladijegyar = 11600;
-          $nyugdijasjegyar = 3500;
-
-          foreach ($kosarak["kosarak"] as $kosar) {
-              if ($kosar["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-                  // A jegyek kiírása
-                  if (isset($kosar["jegyek"]["diakjegy"])) {
-                      echo '<tr>';
-                      echo '<td>' . 'Diákjegy' . '</td>';
-                      echo '<td>' . $kosar["kiszallitas-mod"] . '</td>';
-                      echo '<td>' . $kosar["jegyek"]["diakjegy"] . '</td>';
-                      echo '<td>' . $kosar["jegyek"]["diakjegy"]*$diakjegyar . '</td>';
-                      echo '</tr>';
-
-                  }
-                  if (isset($kosar["jegyek"]["felnottjegy"])) {
-                      echo '<tr>';
-
-                      echo '<td>' . 'Felnőttjegy' . '</td>';
-                      echo '<td>' . $kosar["kiszallitas-mod"] . '</td>';
-                      echo '<td>' . $kosar["jegyek"]["felnottjegy"] . '</td>';
-                      echo '<td>' . $kosar["jegyek"]["felnottjegy"]*$felnottjegyar . '</td>';
-                      echo '</tr>';
-
-                  }
-                  if (isset($kosar["jegyek"]["csaladijegy"])) {
-                      echo '<tr>';
-
-                      echo '<td>' . 'Családijegy' . '</td>';
-                      echo '<td>' . $kosar["kiszallitas-mod"] . '</td>';
-                      echo '<td>' . $kosar["jegyek"]["csaladijegy"] . '</td>';
-                      echo '<td>' . $kosar["jegyek"]["csaladijegy"]*$csaladijegyar . '</td>';
-                      echo '</tr>';
-
-                  }
-                  if (isset($kosar["jegyek"]["nyugdijasjegy"])) {
-                      echo '<tr>';
-
-                      echo '<td>' . 'Nyugdíjasjegy' . '</td>';
-                      echo '<td>' . $kosar["kiszallitas-mod"] . '</td>';
-                      echo '<td>' . $kosar["jegyek"]["nyugdijasjegy"] . '</td>';
-                      echo '<td>' . $kosar["jegyek"]["nyugdijasjegy"]*$nyugdijasjegyar . '</td>';
-                      echo '</tr>';
-
-
-                  }
-              }
-          }
+            include 'fuggvenyek/tablazatkiiratas.php';
+            vasarlasiElozmenyekKiiratas($kosarakfile);
           ?>
           </tbody>
         </table>
-          <?php } ?>
+          <?php } else {
+              echo '<h1>' . 'Üres kosár!' . '</h1>';
+          } ?>
       </div>
     </fieldset>
   </form>
