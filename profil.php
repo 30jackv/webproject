@@ -52,7 +52,7 @@
                                 $value["felhasznalonev"] = $_POST["fnev-valtoztatas"];
                             }
                         }
-                        unset($item);
+                        unset($value);
 
                         $_SESSION["felhasznalo"]["felhasznalonev"] = $_POST["fnev-valtoztatas"];
 
@@ -95,7 +95,6 @@
             $fajlkiterjesztes = end($fajlkiterjesztes);
 
             $megfelelokiterjesztes = false;
-            unset($value);
             foreach ($elfogadott_kiterjesztesek as $value) {
                 if ($value === $fajlkiterjesztes) {
                     $megfelelokiterjesztes = true;
