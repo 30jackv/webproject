@@ -1,20 +1,8 @@
 <?php
     session_start();
+    include 'fuggvenyek/adminellenorzes.php';
 
-    $adminfile = "fiokok/admin.json";
-
-    $adminok = json_decode(file_get_contents($adminfile), true);
-
-    $admine = false;
-
-    if (isset($_SESSION["felhasznalo"])) {
-        foreach ($adminok["adminok"] as $admin) {
-            if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-                $admine = true;
-                break;
-            }
-        }
-    }
+    $isAdmin = isAdmin();
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +32,7 @@
     <?php } else { ?>
         <a href="kosar.php">Kosár</a>
         <a href="profil.php">Profil</a>
-        <?php if ($admine === true) {?>
+        <?php if ($isAdmin === true) {?>
             <a href="admin.php">Admin</a>
         <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>

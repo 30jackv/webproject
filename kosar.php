@@ -1,24 +1,16 @@
 <?php
     session_start();
+    include 'fuggvenyek/adminellenorzes.php';
+    include 'fuggvenyek/kosarellenorzes.php';
+    include 'fuggvenyek/adatmentestoltes.php';
 
     $kosarfile = "fiokok/kosarak.json";
-
-    $adminfile = "fiokok/admin.json";
-
-    $adminok = json_decode(file_get_contents($adminfile), true);
-
-    $admine = false;
 
     if (!isset($_SESSION["felhasznalo"])) {
         header("Location: index.php");
     }
 
-    foreach ($adminok["adminok"] as $admin) {
-        if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-            $admine = true;
-            break;
-        }
-    }
+    $isAdmin = isAdmin();
 
     $kosar = [
         "felhasznalonev" => $_SESSION["felhasznalo"]["felhasznalonev"],
@@ -28,30 +20,29 @@
 
     if (isset($_POST["rendeles"])) {
         // diakjegy, felnottjegy, csaladijegy, nyugdijasjegy
-        // ha meg van adva érték és egy betű, vagy üres akkor hiba
 
         if ((isset($_POST["diakjegy"]) && (!is_numeric($_POST["diakjegy"]) && trim($_POST["diakjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Diákjegy!";
         } elseif (isset($_POST["diakjegy"]) && ($_POST["diakjegy"] >= 1 && $_POST["diakjegy"] <= 5)) {
-            $kosar["jegyek"]["diakjegy"] = $_POST["diakjegy"];
+            $kosar["jegyek"]["Diákjegy"]["darab"] = $_POST["diakjegy"];
         }
 
         if ((isset($_POST["felnottjegy"]) && (!is_numeric($_POST["felnottjegy"]) && trim($_POST["felnottjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Felnőttjegy!";
         } elseif (isset($_POST["felnottjegy"]) && ($_POST["felnottjegy"] >= 1 && $_POST["felnottjegy"] <= 5)) {
-            $kosar["jegyek"]["felnottjegy"] = $_POST["felnottjegy"];
+            $kosar["jegyek"]["Felnőttjegy"]["darab"] = $_POST["felnottjegy"];
         }
 
         if ((isset($_POST["csaladijegy"]) && (!is_numeric($_POST["csaladijegy"]) && trim($_POST["csaladijegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Családijegy!";
         } elseif (isset($_POST["csaladijegy"]) && ($_POST["csaladijegy"] >= 1 && $_POST["csaladijegy"] <= 5)) {
-            $kosar["jegyek"]["csaladijegy"] = $_POST["csaladijegy"];
+            $kosar["jegyek"]["Családijegy"]["darab"] = $_POST["csaladijegy"];
         }
 
-        if ((isset($_POST["nyugdijasjegy"]) && (!is_numeric($_POST["nyugdijasjegy"]) && trim($_POST["nyugdijasjegy"]) !== ""))) {
+        if ((isset($_POST["Nyugdíjasjegy"]) && (!is_numeric($_POST["nyugdijasjegy"]) && trim($_POST["nyugdijasjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Nyugdíjasjegy!";
         } elseif (isset($_POST["nyugdijasjegy"]) && ($_POST["nyugdijasjegy"] >= 1 && $_POST["nyugdijasjegy"] <= 5)) {
-            $kosar["jegyek"]["nyugdijasjegy"] = $_POST["nyugdijasjegy"];
+            $kosar["jegyek"]["nyugdijasjegy"]["darab"] = $_POST["nyugdijasjegy"];
         }
 
         if ((!isset($_POST["kiszallitas-mod"]) && (!isset($_POST["express"]) || !isset($_POST["normal"])) )) {
@@ -69,20 +60,45 @@
         if ((isset($_POST["promokod"]) && (strlen($_POST["promokod"]) !== 6) && trim($_POST["promokod"]) !== "")) {
             $hibak[] = "Promociós kódok csak 6 betűsek lehetnek!";
         } else if (isset($_POST["promokod"]) && trim($_POST["promokod"]) !== "") {
-            $kosar["promokod"] = $_POST["promokod"];
+            if (promokodEllenorzes($_POST["promokod"]) != -1) {
+                $szazalek = promokodEllenorzes($_POST["promokod"]);
+                $kosar["promokod"] = $_POST["promokod"];
+            } else {
+                $hibak[] = "Nincs ilyen promóciós kód!";
+            }
         }
 
-        if (count($hibak) === 0) {
+        if (count($hibak) === 0 && isset($kosar["jegyek"])) {
             $siker = true;
-            $kosarak = json_decode(file_get_contents($kosarfile), true);
+
+            $osszesar = 0;
+            if (isset($szazalek) ) {
+                foreach ($kosar["jegyek"] as $key => &$value) {
+                    $value["ar"] = jegyAra($key)*$value["darab"]*$szazalek;
+                    $osszesar += $value["ar"];
+                }
+            } else {
+                foreach ($kosar["jegyek"] as $key => &$value) {
+                    $value["ar"] = jegyAra($key)*$value["darab"];
+                    $osszesar += $value["ar"];
+                }
+            }
+            unset($value);
+
+            $kosar["osszeg"] = $osszesar + kiszallitasEllenorzes($_POST["kiszallitas-mod"]);
+
+            $kosarak = loadData($kosarfile);
+
             $kosarak["kosarak"][] = $kosar;
-            $json_data = json_encode($kosarak, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-            file_put_contents($kosarfile, $json_data);
+
+            saveData($kosarfile, $kosarak);
         } else {
+            if (!isset($kosar["jegyek"])) {
+                $hibak[] = "Nem adtál meg jegyet!";
+            }
             $siker = false;
         }
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +127,7 @@
     <?php } else { ?>
         <a class="active">Kosár</a>
         <a href="profil.php">Profil</a>
-        <?php if (isset($admine) && ($admine === true)) {?>
+        <?php if (isset($isAdmin) && ($isAdmin === true)) {?>
             <a href="admin.php">Admin</a>
         <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
@@ -167,8 +183,8 @@
 
         <label for="kiszallitas">Kiszállítás:</label> <br>
         <select id="kiszallitas" name="kiszallitas-mod">
-            <option value="express" selected>Expressz: +3500 Ft (1-2 nap várakozási idő)</option>
-            <option value="normal">Normál +1500 Ft (3-5 nap várakozási idő)</option>
+            <option value="Expressz" selected>Expressz: +3500 Ft (1-2 nap várakozási idő)</option>
+            <option value="Normál">Normál +1500 Ft (3-5 nap várakozási idő)</option>
         </select> <br>
 
         <label for="promo">Promóciós kód: </label> <br>
@@ -183,6 +199,8 @@
         <?php
         if (isset($siker) && $siker === TRUE) {  // ha nem volt hiba, akkor a regisztráció sikeres
             echo "<p style='text-align: center; font-size: 20px'>Sikeres rendelés!</p>";
+            echo "<p>" . "Összeg: " . $kosar["osszeg"] . " Ft" . "</p>";
+
         } else {                                // az esetleges hibákat kiírjuk egy-egy bekezdésben
             foreach ($hibak as $hiba) {
                 echo "<p style='text-align: center; font-size: 12px'>" . $hiba . "</p>";

@@ -1,20 +1,10 @@
 <?php
     session_start();
 
-    $adminfile = "fiokok/admin.json";
+    include 'fuggvenyek/adminellenorzes.php';
 
-    $adminok = json_decode(file_get_contents($adminfile), true);
+    $isAdmin = isAdmin();
 
-    $admine = false;
-
-    if (isset( $_SESSION["felhasznalo"])) {
-        foreach ($adminok["adminok"] as $admin) {
-            if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-                $admine = true;
-                break;
-            }
-        }
-    }
 ?>
 <!DOCTYPE html>
 
@@ -42,7 +32,7 @@
     <?php } else { ?>
         <a href="kosar.php">Kosár</a>
         <a href="profil.php">Profil</a>
-        <?php if ($admine === true) {?>
+        <?php if ($isAdmin === true) {?>
         <a href="admin.php">Admin</a>
         <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
@@ -73,6 +63,9 @@
   <footer>
     <h1>Programok</h1>
       <?php
+      $programfile = "fiokok/programok.json";
+      $programok = json_decode(file_get_contents($programfile), true);
+
       if (empty($programok["programok"])) {
           echo '<h1 style="text-align: center;">' . 'Jelenleg nincs program' .'</h1>';
       }
