@@ -1,27 +1,18 @@
 <?php
     session_start();
+    include 'fuggvenyek/adminellenorzes.php';
 
     $programfile = "fiokok/programok.json";
-    $adminfile = "fiokok/admin.json";
     $ujprogramhibak = [];
-
-    $adminok = json_decode(file_get_contents($adminfile), true);
 
     if (!isset($_SESSION["felhasznalo"])) {
         header("Location: index.php");
     }
 
-    $admine = false;
+    $isAdmin = isAdmin();
 
-    foreach ($adminok["adminok"] as $admin) {
-        if ($admin["felhasznalonev"] === $_SESSION["felhasznalo"]["felhasznalonev"]) {
-            $admine = true;
-            break;
-        }
-    }
-
-    if ($admine === true) {
-        if (isset($_POST["uj-program-gomb"])) {
+    if ($isAdmin === true) {
+        if (isset($_POST["uj-program-gomb"  ])) {
 
             if (!isset($_POST["uj-program-nev"]) || trim($_POST["uj-program-nev"]) === "") {
                 $ujprogramhibak[] = "Kötelező megadni az új program nevét!";
@@ -160,7 +151,7 @@
     <?php } else { ?>
         <a href="kosar.php">Kosár</a>
         <a href="profil.php">Profil</a>
-        <?php if (isset($admine) && ($admine === true)) {?>
+        <?php if (isset($isAdmin) && ($isAdmin === true)) {?>
             <a class="active">Admin</a>
         <?php } ?>
         <a href="kijelentkezes.php">Kijelentkezés</a>
