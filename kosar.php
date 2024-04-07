@@ -51,7 +51,7 @@
             $kosar["kiszallitas-mod"] = $_POST["kiszallitas-mod"];
         }
 
-        if (isset($_POST["szallito-megjegyzes"]) && (strlen($_POST["szallito-megjegyzes"]) >= 200)) {
+        if (isset($_POST["szallito-megjegyzes"]) && (strlen($_POST["szallito-megjegyzes"]) > 200)) {
             $hibak[] = "A szállító megjegyzés nem lépheti túl a 200 karakter limitet!";
         } else if (isset($_POST["szallito-megjegyzes"]) && trim($_POST["szallito-megjegyzes"]) !== "") {
             $kosar["szallito-megjegyzes"] = $_POST["szallito-megjegyzes"];
