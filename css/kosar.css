@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: stretch;
   padding: 0;
+  height: 100vh;
 }
 
 #main-kosar hr {

@@ -1,37 +1,4 @@
 {
     "kosarak": [
-        {
-            "felhasznalonev": "admin",
-            "jegyek": {
-                "Diákjegy": {
-                    "darab": "2",
-                    "ar": 7000
-                }
-            },
-            "kiszallitas-mod": "Expressz",
-            "osszeg": 10500
-        },
-        {
-            "felhasznalonev": "admin",
-            "jegyek": {
-                "Diákjegy": {
-                    "darab": "2",
-                    "ar": 7000
-                }
-            },
-            "kiszallitas-mod": "Expressz",
-            "osszeg": 10500
-        },
-        {
-            "felhasznalonev": "admin",
-            "jegyek": {
-                "nyugdijasjegy": {
-                    "darab": "2",
-                    "ar": -2
-                }
-            },
-            "kiszallitas-mod": "Expressz",
-            "osszeg": 3498
-        }
     ]
 }

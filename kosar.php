@@ -42,7 +42,7 @@
         if ((isset($_POST["Nyugdíjasjegy"]) && (!is_numeric($_POST["nyugdijasjegy"]) && trim($_POST["nyugdijasjegy"]) !== ""))) {
             $hibak[] = "Nem megfelelő érték lett megadva itt: Nyugdíjasjegy!";
         } elseif (isset($_POST["nyugdijasjegy"]) && ($_POST["nyugdijasjegy"] >= 1 && $_POST["nyugdijasjegy"] <= 5)) {
-            $kosar["jegyek"]["nyugdijasjegy"]["darab"] = $_POST["nyugdijasjegy"];
+            $kosar["jegyek"]["Nyugdíjasjegy"]["darab"] = $_POST["nyugdijasjegy"];
         }
 
         if ((!isset($_POST["kiszallitas-mod"]) && (!isset($_POST["express"]) || !isset($_POST["normal"])) )) {
