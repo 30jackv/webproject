@@ -241,6 +241,17 @@
         ?>
     </fieldset>
   </form>
+    <form id="uj-allat-hozzaadasa" method="POST" autocomplete="off" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Állat hozzáadása</legend>
+            <label for="allat-fajta">Állat fajta:</label>
+            <input type="text" id="allat-fajta" name="allat-fajta" placeholder="Állat fajtája">
+            <label for="allat-kep">Állat képe:</label>
+            <input type="file" id="allat-kep" name="allat-kep">
+            <label for="allat-leiras">Állat fajta:</label>
+            <textarea cols="30" rows="4" id="allat-leiras" name="allat-leiras" placeholder="Állat leírása..."></textarea>
+        </fieldset>
+    </form>
 </main>
 
 </body>

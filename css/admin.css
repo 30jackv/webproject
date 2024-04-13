@@ -2,6 +2,10 @@ form {
     margin-top: 100px;
 }
 
+form:last-child {
+    display: block;
+}
+
 form legend {
     font-weight: bold;
     background-color: #436850;
@@ -36,7 +40,7 @@ fieldset {
     flex-direction: column;
     align-items: center;
     border-radius: 30px;
-    padding: 20px 100px;
+    padding: 20px 70px;
     gap: 10px;
     background-color: #eeeec3;
     border: #436850 5px solid;
