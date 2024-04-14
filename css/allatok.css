@@ -16,7 +16,7 @@
   padding: 10px;
 }
 
-#main-allat img {
+#main-allat section img {
   width: 350px;
   margin-right: 10px;
   margin-left: 10px;
@@ -47,6 +47,14 @@
 
 #main-allat section:nth-child(even) {
   margin: 20px auto 20px 30px;
+}
+
+#main-allat section:nth-child(odd) {
+  text-align: right;
+}
+
+#main-allat section:nth-child(even) {
+  text-align: left;
 }
 
 caption {

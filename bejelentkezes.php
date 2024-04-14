@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include 'fuggvenyek/adatmentestoltes.php';
 
     $usersfile = "fiokok/fiokok.json";
 
@@ -47,8 +48,9 @@
             $hibak[] = "Város, Utcát, Házszámot kell megadni! Rossz formátum.";
         }
 
-        if (count(file($usersfile)) > 4) {
-            $fiokok = json_decode(file_get_contents($usersfile), true);
+        $userstomb = loadData($usersfile);
+        if (count($userstomb["users"]) > 0) {
+            $fiokok = loadData($usersfile);
 
             foreach ($fiokok["users"] as $fiok) {
                 if ($fiok["felhasznalonev"] === $felhasznalonev_regisztracio) {
@@ -67,11 +69,9 @@
                 "teljesnev" => $teljesnev_tomb
             ];
 
-            $fiokok = json_decode(file_get_contents($usersfile), true);
+            $fiokok = loadData($usersfile);
             $fiokok["users"][] = $fiok;
-            $json_data = json_encode($fiokok, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-            file_put_contents($usersfile, $json_data);
-
+            saveData($usersfile, $fiokok);
             $siker = true;
         } else {
             $siker = false;
