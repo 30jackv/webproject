@@ -308,7 +308,7 @@ if ($isAdmin === true) {
             <?php
             if (isset($_POST["allat-hozzaadasa"])) {
                 if (isset($allathibak) && count($allathibak) === 0) {
-                    echo "<p style='text-align: center; font-size: 20px'>Sikeres törlés!</p>";
+                    echo "<p style='text-align: center; font-size: 20px'>Sikeres állat hozzáadás!</p>";
                 } else {
                     if (isset($allathibak) && count($allathibak) >= 1) {
                         foreach ($allathibak as $allathiba) {
