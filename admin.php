@@ -150,7 +150,6 @@ if ($isAdmin === true) {
 
         $megfelelokiterjesztes = false;
         foreach ($elfogadottfajlkiterjesztesek as $kiterjesztes) {
-            echo $kiterjesztes . " === " . $fajlkiterjesztes;
             if ($kiterjesztes === $fajlkiterjesztes) {
                 $megfelelokiterjesztes = true;
             }
@@ -277,7 +276,7 @@ if ($isAdmin === true) {
             <label for="program-torles">Törlendő program neve:</label>
             <?php
             $programok = json_decode(file_get_contents($programfile), true);
-            echo '<select style="padding: 10px; border-radius: 30px; text-align: center; width: max-content;" name="torlendo-program-nev" id="program-nev">';
+            echo '<select style="padding: 10px; border-radius: 30px; text-align: center; width: max-content;" name="torlendo-program-nev" id="program-torles">';
             foreach ($programok["programok"] as $program) {
                 echo '<option value="' . $program["program-nev"] . '">' . $program["program-nev"] . ' </option>' ;
             }
